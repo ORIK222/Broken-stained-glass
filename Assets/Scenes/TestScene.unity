@@ -280,13 +280,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332143802}
-  m_LocalRotation: {x: 0.17209019, y: 0.71514535, z: -0.18442306, w: 0.6518744}
-  m_LocalPosition: {x: -42.38, y: 10.41, z: -38.6}
+  m_LocalRotation: {x: 0.18558903, y: 0.6636151, z: -0.17083202, w: 0.7042642}
+  m_LocalPosition: {x: -38.14, y: 9.47, z: -38.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 29.218002, y: 95.397, z: 0.374}
+  m_LocalEulerAnglesHint: {x: 29.218002, y: 86.693, z: 0.374}
 --- !u!114 &332143806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,6 +389,37 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: e4ef037866e47a34b986721003a56ac7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71690b03b964e294e904b5da57ee5bf3, type: 3}
+--- !u!1 &716194336 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5157609276677395, guid: 527130de29bbbc84a807f20a70de5d6e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5157609246994348}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &716194338
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716194336}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.1005077, y: 5.5631576, z: 1.4960843}
+  m_Center: {x: 0.08285501, y: 2.2815788, z: -0.035295267}
+--- !u!114 &716194339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716194336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9061806d089404438b3e96c77488457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1344972926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -672,6 +703,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5157609276703027, guid: 527130de29bbbc84a807f20a70de5d6e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.93
+      objectReference: {fileID: 0}
     - target: {fileID: 168170158933951901, guid: 527130de29bbbc84a807f20a70de5d6e,
         type: 3}
       propertyPath: m_Name
