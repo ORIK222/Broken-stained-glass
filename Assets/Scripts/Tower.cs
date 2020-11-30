@@ -5,10 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Tower : MonoBehaviour
 {
-
+    [SerializeField] private int _levelNumber = 0;
     private void OnMouseDown()
     {
-        SceneManager.LoadScene("Level 1");
-       //LevelLoader.levelLoader.Load();
+        SceneManager.LoadScene(_levelNumber);
     }
 }
