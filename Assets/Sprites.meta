@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Sprites.meta
 guid: 13a5f2ab0dad66342995195b1941fcda
+=======
+guid: 1d649bd4c73f1a146b54df259463d116
+>>>>>>> 8e8cc28acdee09cb9106c1ae6e4302c0232d116e:Assets/YapoFixelAssets/Scenes.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
