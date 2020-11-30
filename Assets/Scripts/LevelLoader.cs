@@ -5,8 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    private void OnMouseDown()
+    /*public static LevelLoader levelLoader;
+    [SerializeField] private Tower[] _towers;
+
+    private void Start()
     {
-        SceneManager.LoadScene("Level 1");
+        levelLoader = this;
     }
+
+    public void Load()
+    {
+
+    }*/
+
 }
