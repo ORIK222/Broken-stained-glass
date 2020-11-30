@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.SceneManager;
+using UnityEngine.SceneManagement;
 
-//public class Menu : MonoBehaviour
-//{
-//    public void StartButtonOnClick()
-//    {
-//       // SceneManager.Load("TestScene");
-//    }
-//}
+public class Menu : MonoBehaviour
+{
+    public void StartButtonOnClick()
+    {
+      SceneManager.LoadScene("TestScene");
+    }
+}
