@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
     public void Analyze()
     {
         float result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);
-        _scoreText.text = "Match:\n" + result + "%";
+        _scoreText.text = "Your result: " + result + "%";
         OnEndGame();
     }
     void SetTextureSize(int size, Camera camera, RawImage image)
