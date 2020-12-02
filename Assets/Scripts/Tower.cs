@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelLoader : MonoBehaviour
+public class Tower : MonoBehaviour
 {
+    [SerializeField] private int _levelNumber;
+
     private void OnMouseDown()
     {
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene(_levelNumber);
     }
 }

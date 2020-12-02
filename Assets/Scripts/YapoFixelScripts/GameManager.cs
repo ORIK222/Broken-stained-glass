@@ -155,7 +155,8 @@ public class GameManager : MonoBehaviour
     }
     void OnEndGame()
     {
-        _repairedArtDebug.gameObject.SetActive(true);
+        _repairedArtDebug.gameObject.SetActive(false);
+        _originalArtDebug.gameObject.SetActive(false);
         _endLevelPanel.gameObject.SetActive(true);
         if (_chips != null)
         {
