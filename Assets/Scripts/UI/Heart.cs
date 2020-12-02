@@ -5,14 +5,20 @@ using UnityEngine.UI;
 
 public class Heart : MonoBehaviour
 {
-    public bool IsLost = false;
-    [SerializeField] private Sprite _sprite;
+    public Sprite sprite;
+    [SerializeField] private Sprite _redSprite;
 
+    public bool IsLost;
+
+    private void Awake()
+    {
+        sprite = GetComponent<Sprite>();
+    }
 
     private void Start()
     {
-        _sprite = GetComponent<Image>().sprite;
-
+        sprite = _redSprite;
+        IsLost = false;
     }
 }
 
