@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
     {
         _endLevelPanel.gameObject.SetActive(false);
     }
-
     public void GetColors()
     {
         SetTextureSize(_RTColorizeSize, _cameraOriginalArt, _originalArtDebug);
@@ -45,7 +44,6 @@ public class GameManager : MonoBehaviour
         SetTextureSize(_RTAnalizeSize, _cameraRepairedArt, _repairedArtDebug);
         GenerateChips();
     }
-
     public void GenerateChips()
     {
         OnStartGame();
@@ -60,15 +58,15 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        float offsetY = 3.4f / (_RTAnalizeSize * _RTAnalizeSize);
-        float posY = -0.5f;
+        float offsetX = 6f / (_RTAnalizeSize * _RTAnalizeSize);
+        float posX = -3f;
 
         for (int i = 0; i < _RTAnalizeSize * _RTAnalizeSize; i++)
         {
-            Transform tr = ((GameObject) Instantiate(_prefabChip[Random.Range(0, _prefabChip.Count)], _chipsRootNode, true)).transform;
+            Transform tr = (Instantiate(_prefabChip[Random.Range(0, _prefabChip.Count)], _chipsRootNode, true)).transform;
 
-            tr.SetPositionAndRotation(new Vector3(Random.Range(-0.5f, 0.5f) - 0.2f, posY, 0.0f), Quaternion.identity);
-            posY += offsetY;
+            tr.SetPositionAndRotation(new Vector3( posX, Random.Range(-2.5f, -2.1f) - 0.2f, 0.0f), Quaternion.identity);
+            posX += offsetX;
 
             ChipController chip = tr.GetComponent<ChipController>();
             chip.Init(this, _colors[(int)Mathf.Repeat(i, _colors.Count)]);
@@ -76,14 +74,12 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
     public void Analyze()
     {
         float result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);
         _scoreText.text = "Your result: " + result + "%";
         OnEndGame();
     }
-
     void SetTextureSize(int size, Camera camera, RawImage image)
     {
         if (camera.targetTexture != null)
@@ -96,7 +92,6 @@ public class GameManager : MonoBehaviour
         image.texture = camera.targetTexture;
         camera.Render();
     }
-
     float CompareRT(RenderTexture origin, RenderTexture repaired)
     {
         List<Color> colorsOrig = GetColorsList(origin);
@@ -117,7 +112,6 @@ public class GameManager : MonoBehaviour
 
         return result;
     }
-
     List<Color> GetColorsList(RenderTexture rt)
     {
         List<Color> colors = new List<Color>();
@@ -138,31 +132,27 @@ public class GameManager : MonoBehaviour
 
         return colors;
     }
-
     bool IsEqualFloat(float float1, float float2, float delta = 0.00001f)
     {
         return (float1 + delta >= float2) && (float1 - delta <= float2);
     }
-
     public void ChipReleased(Vector2 chipPosition)
     {
-        if (!_gameStarted)
+       /* if (!_gameStarted)
         {
             if ((chipPosition.x > 615 && chipPosition.x < 815) && (chipPosition.y > 315 && chipPosition.y < 525))
             {
                 _gameStarted = true;
                 _repairedArtDebug.gameObject.SetActive(false);
             }
-        }
+        }*/
     }
-
     void OnStartGame()
     {
         _gameStarted = false;
         _repairedArtDebug.gameObject.SetActive(true);
         _endLevelPanel.gameObject.SetActive(false);
     }
-
     void OnEndGame()
     {
         _repairedArtDebug.gameObject.SetActive(true);
