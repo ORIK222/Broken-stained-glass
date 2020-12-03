@@ -44,7 +44,4 @@ public class CameraRotateAround : MonoBehaviour {
 	{
 		_direction = 0;
 	}
-
-	/*_rotateDelta.y += Input.GetAxis("Mouse Y") * _sensitivity;
-	_rotateDelta.y = Mathf.Clamp(_rotateDelta.y, -_limit, _limit);*/
 }

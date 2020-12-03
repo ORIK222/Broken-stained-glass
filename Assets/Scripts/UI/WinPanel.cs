@@ -13,4 +13,9 @@ public class WinPanel : MonoBehaviour
     {
         _titleText.text = "Level " + SceneManager.GetActiveScene().buildIndex.ToString();
     }
+
+    public void BackToLastScene()
+    {
+        SceneManager.LoadScene("Main");
+    }
 }

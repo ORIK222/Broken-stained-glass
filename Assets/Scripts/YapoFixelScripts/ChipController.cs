@@ -44,6 +44,8 @@ public class ChipController : MonoBehaviour
     {
         if (_isDisabled) return;
         _gameManager.ChipReleased(_camera.WorldToScreenPoint(transform.position));
+        StepCounter.StepsCount++;
+        Debug.Log(StepCounter.StepsCount);
     }
 
     public void SetDisabled()
