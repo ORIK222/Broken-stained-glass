@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ChipController : MonoBehaviour
 {
     [SerializeField] SpriteRenderer _spriteRenderer;
-    [SerializeField] StepsText _stepsText;
+    private StepCounter _stepCounter;
 
     private Vector3 screenPoint;
     private Vector3 _offset;
@@ -23,12 +24,11 @@ public class ChipController : MonoBehaviour
     {
         _camera = Camera.main;
         _screenBounds = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _camera.transform.position.z));
-        _stepsText = FindObjectOfType<StepsText>();
+        _stepCounter = FindObjectOfType<StepCounter>();
     }
 
     private void Start()
     {
-        _stepsText.text.text = "0";
         _startPosition = transform.position;
     }
     public void Init(GameManager gameManager, Color color)
@@ -60,15 +60,15 @@ public class ChipController : MonoBehaviour
     {
         if (_isDisabled) return;
         _gameManager.ChipReleased(_camera.WorldToScreenPoint(transform.position));
-        StepCounter.StepsCount++;
-        _stepsText.text.text = StepCounter.StepsCount.ToString();
+        _stepCounter.Count--;
+        StepsPanel.stepsPanel.StepsCountText.text = _stepCounter.Count.ToString();
         MovingToStartPosition();
     }
 
     private void MovingToStartPosition()
     {
-        if(transform.position.x > -3.0f && transform.position.x < -0.5f 
-           && transform.position.y > 0.3f && transform.position.x < 2.7f)
+        if(transform.position.x > -5.7f && transform.position.x < -0.5f 
+           && transform.position.y > -4f && transform.position.y < 2.7f)
         {
             transform.position = Vector3.Lerp(transform.position, _startPosition, 1.0f);
         }

@@ -1,9 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 public class StepCounter : MonoBehaviour
 {
-    public static int StepsCount = 0;
+    public UnityEvent EndLevelEvents; 
+    public int Count;
+    private void Update()
+    {
+        if (Count <= 0) EndLevelEvents.Invoke();
+    }
+
+
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -80,7 +81,7 @@ public class GameManager : MonoBehaviour
         _scoreText.text = "Your result: " + result + "%";
         OnEndGame();
     }
-    void SetTextureSize(int size, Camera camera, RawImage image)
+    private void SetTextureSize(int size, Camera camera, RawImage image)
     {
         if (camera.targetTexture != null)
         {
@@ -92,7 +93,7 @@ public class GameManager : MonoBehaviour
         image.texture = camera.targetTexture;
         camera.Render();
     }
-    float CompareRT(RenderTexture origin, RenderTexture repaired)
+    private float CompareRT(RenderTexture origin, RenderTexture repaired)
     {
         List<Color> colorsOrig = GetColorsList(origin);
         List<Color> colorsRepaired = GetColorsList(repaired);
@@ -132,7 +133,7 @@ public class GameManager : MonoBehaviour
 
         return colors;
     }
-    bool IsEqualFloat(float float1, float float2, float delta = 0.00001f)
+    private bool IsEqualFloat(float float1, float float2, float delta = 0.00001f)
     {
         return (float1 + delta >= float2) && (float1 - delta <= float2);
     }
@@ -147,13 +148,13 @@ public class GameManager : MonoBehaviour
             }
         }*/
     }
-    void OnStartGame()
+    private void OnStartGame()
     {
         _gameStarted = false;
         _repairedArtDebug.gameObject.SetActive(true);
         _endLevelPanel.gameObject.SetActive(false);
     }
-    void OnEndGame()
+    private void OnEndGame()
     {
         _repairedArtDebug.gameObject.SetActive(false);
         _originalArtDebug.gameObject.SetActive(false);
