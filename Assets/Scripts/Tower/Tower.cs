@@ -8,10 +8,11 @@ public class Tower : MonoBehaviour
     [SerializeField] private Text _levelNumberText;
 
     public bool IsUnlocked;
+    public bool IsComplete;
 
     private void OnMouseDown()
     {
-        if (IsUnlocked)
+        if (IsUnlocked && !IsComplete)
         {
             _startLevelPanel.SetActive(true);
             _levelNumberText.text = "Level " + _levelNumber.ToString();

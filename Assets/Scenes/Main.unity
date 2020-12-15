@@ -455,8 +455,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100002, guid: 71690b03b964e294e904b5da57ee5bf3, type: 3}
       propertyPath: m_Name
-      value: "\u0432\u043E\u0434\u0430 \u043D\u0430\u0432\u043A\u043E\u043B\u043E
-        \u0437\u0430\u043C\u043A\u0430"
+      value: Water
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 71690b03b964e294e904b5da57ee5bf3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -641,6 +640,7 @@ MonoBehaviour:
   _levelNumber: 0
   _startLevelPanel: {fileID: 1405596443}
   _levelNumberText: {fileID: 341645429}
+  IsUnlocked: 0
   IsComplete: 0
 --- !u!1 &716194336 stripped
 GameObject:
@@ -663,6 +663,7 @@ MonoBehaviour:
   _levelNumber: 1
   _startLevelPanel: {fileID: 1405596443}
   _levelNumberText: {fileID: 341645429}
+  IsUnlocked: 0
   IsComplete: 0
 --- !u!65 &716194338
 BoxCollider:
@@ -1213,7 +1214,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100002, guid: baa53aecac6a3bb4cb9f4cd19a9e5edd, type: 3}
       propertyPath: m_Name
-      value: "\u0442\u0440\u0430\u0432\u0430 \u043F\u0435\u0440\u0435\u0434 \u0437\u0430\u043C\u043A\u043E\u043C.opj.vox"
+      value: Grass
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: baa53aecac6a3bb4cb9f4cd19a9e5edd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1911,6 +1912,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WideTower1
       objectReference: {fileID: 0}
+    - target: {fileID: 5157607790454890, guid: 527130de29bbbc84a807f20a70de5d6e, type: 3}
+      propertyPath: m_Name
+      value: Road
+      objectReference: {fileID: 0}
     - target: {fileID: 5157607983912718, guid: 527130de29bbbc84a807f20a70de5d6e, type: 3}
       propertyPath: m_Name
       value: NarrowTower1
@@ -2110,6 +2115,7 @@ MonoBehaviour:
   _levelNumber: 0
   _startLevelPanel: {fileID: 1405596443}
   _levelNumberText: {fileID: 341645429}
+  IsUnlocked: 0
   IsComplete: 0
 --- !u!114 &5157609246994356
 MonoBehaviour:
@@ -2126,6 +2132,7 @@ MonoBehaviour:
   _levelNumber: 2
   _startLevelPanel: {fileID: 1405596443}
   _levelNumberText: {fileID: 341645429}
+  IsUnlocked: 0
   IsComplete: 0
 --- !u!114 &5157609246994357
 MonoBehaviour:
@@ -2142,6 +2149,7 @@ MonoBehaviour:
   _levelNumber: 3
   _startLevelPanel: {fileID: 1405596443}
   _levelNumberText: {fileID: 341645429}
+  IsUnlocked: 0
   IsComplete: 0
 --- !u!114 &5157609246994358
 MonoBehaviour:
@@ -2158,6 +2166,7 @@ MonoBehaviour:
   _levelNumber: 0
   _startLevelPanel: {fileID: 1405596443}
   _levelNumberText: {fileID: 341645429}
+  IsUnlocked: 0
   IsComplete: 0
 --- !u!114 &5157609246994359
 MonoBehaviour:
@@ -2174,6 +2183,7 @@ MonoBehaviour:
   _levelNumber: 0
   _startLevelPanel: {fileID: 1405596443}
   _levelNumberText: {fileID: 341645429}
+  IsUnlocked: 0
   IsComplete: 0
 --- !u!1 &5157609246994360 stripped
 GameObject:
@@ -2193,8 +2203,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1db8a05a5cb9bc42b62e111cf274b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grayMaterial: {fileID: 2100000, guid: e330a7e4db1d4744b9dc46bec82e15da, type: 2}
-  _colorMaterial: {fileID: 2100000, guid: 07a23fc5d4405b040a56a5bfcbe2177f, type: 2}
+  _lockedMaterial: {fileID: 2100000, guid: e330a7e4db1d4744b9dc46bec82e15da, type: 2}
+  _unlockedMaterial: {fileID: 2100000, guid: 9112cb95da08e2d47aa54ffbbe523ae6, type: 2}
+  _completedMaterial: {fileID: 2100000, guid: 07a23fc5d4405b040a56a5bfcbe2177f, type: 2}
 --- !u!65 &5157609246994362
 BoxCollider:
   m_ObjectHideFlags: 0

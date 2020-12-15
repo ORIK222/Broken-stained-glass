@@ -5,8 +5,9 @@ using UnityEngine;
 public class TowerController : MonoBehaviour
 {
     private Tower[] _towers;
-    [SerializeField] private Material _grayMaterial;
-    [SerializeField] private Material _colorMaterial;
+    [SerializeField] private Material _lockedMaterial;
+    [SerializeField] private Material _unlockedMaterial;
+    [SerializeField] private Material _completedMaterial;
     private void Awake()
     {
         _towers = new Tower[transform.childCount];
@@ -22,15 +23,17 @@ public class TowerController : MonoBehaviour
     {
         for (int i = 0; i < _towers.Length; i++)
         {
-            _towers[i].transform.GetChild(0).GetComponent<Renderer>().material = _grayMaterial;
+            _towers[i].transform.GetChild(0).GetComponent<Renderer>().material = _lockedMaterial;
             _towers[i].IsUnlocked = false;
         }
-        for (int i = 0; i < LevelData.LevelCompletedCount; i++)
+        for (int i = 0; i < LevelData.LevelUnlockedCount; i++)
         {
-            _towers[i].transform.GetChild(0).GetComponent<Renderer>().material = _colorMaterial;
+            _towers[i].transform.GetChild(0).GetComponent<Renderer>().material = _completedMaterial;
             _towers[i].IsUnlocked = true;
+            _towers[i].IsComplete = true;
         }
-
+        _towers[LevelData.LevelUnlockedCount - 1].transform.GetChild(0).GetComponent<Renderer>().material = _unlockedMaterial;
+        _towers[LevelData.LevelUnlockedCount - 1].IsComplete = false;
     }
     private void Init()
     {

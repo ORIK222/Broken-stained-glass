@@ -31,11 +31,13 @@ public class GameManager : MonoBehaviour
     private bool _gameStarted;
     private List<ChipController> _chips;
 
-    private bool _isWin;
+    public bool IsWin;
+    public static GameManager gameManager;
 
     void Start()
     {
         _endLevelPanel.gameObject.SetActive(false);
+        gameManager = this;
     }
     public void GetColors()
     {
@@ -81,8 +83,8 @@ public class GameManager : MonoBehaviour
     {
         float result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);
         _scoreText.text = "Your result: " + result + "%";
-        if (result >= 75) _isWin = true;
-        else _isWin = false;
+        if (result >= 75) IsWin = true;
+        else IsWin = false;
         OnEndGame();
     }
     private void SetTextureSize(int size, Camera camera, RawImage image)
@@ -170,10 +172,10 @@ public class GameManager : MonoBehaviour
                 chip.SetDisabled();
             }
         }
-        if (_isWin)
+        if (IsWin)
         {
-            LevelData.LevelCompletedCount++;
-            PlayerPrefs.SetInt("LevelCount", LevelData.LevelCompletedCount);
+            LevelData.LevelUnlockedCount++;
+            PlayerPrefs.SetInt("LevelCount", LevelData.LevelUnlockedCount);
         }
     }
 }
