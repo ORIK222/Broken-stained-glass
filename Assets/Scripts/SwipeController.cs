@@ -90,6 +90,7 @@ public class SwipeController : MonoBehaviour
         }
         Debug.Log(_isDragging);
     }
+
     private void MouseSwipe()
     {
         if (_isDragging)
@@ -101,11 +102,13 @@ public class SwipeController : MonoBehaviour
             }
         }
     }
+
     private void OnMouseDrag()
     {
         _isDragging = true;
         CalculateMouseSwipe();
     }
+
     private void ResetSwipe()
     {
         _isDragging = false;

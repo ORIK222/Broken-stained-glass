@@ -17,7 +17,6 @@ public class UIController : MonoBehaviour
     {
         uiController = this;
         _gameManager.GetColors();
-        _analizeButton.gameObject.SetActive(false);
     }
     public void ButtonGetColorsOnClick()
     {
