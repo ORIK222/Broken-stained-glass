@@ -6,11 +6,17 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
+    public static UIController uiController;
+
     [SerializeField] private GameManager _gameManager;
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _analizeButton;
+
+
     private void Start()
     {
+        uiController = this;
+        _gameManager.GetColors();
         _startButton.gameObject.SetActive(true);
         _analizeButton.gameObject.SetActive(false);
     }

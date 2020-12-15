@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Tower : MonoBehaviour
 {
-    [SerializeField] private int _levelNumber;
+    [SerializeField] public int _levelNumber;
+    [SerializeField] private GameObject _startLevelPanel;
+    [SerializeField] private Text _levelNumberText;
 
     private void OnMouseDown()
     {
-        SceneManager.LoadScene(_levelNumber);
+        _startLevelPanel.SetActive(true);
+        _levelNumberText.text = "Level " + _levelNumber.ToString();
+        StartGame.LevelNumber = _levelNumber;
     }
+    
 }
