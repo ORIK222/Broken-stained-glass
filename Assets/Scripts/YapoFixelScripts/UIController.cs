@@ -17,13 +17,11 @@ public class UIController : MonoBehaviour
     {
         uiController = this;
         _gameManager.GetColors();
-        _startButton.gameObject.SetActive(true);
         _analizeButton.gameObject.SetActive(false);
     }
     public void ButtonGetColorsOnClick()
     {
         _gameManager.GetColors();
-        _startButton.gameObject.SetActive(false);
         _analizeButton.gameObject.SetActive(true);
     }
 

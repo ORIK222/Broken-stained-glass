@@ -34,10 +34,11 @@ public class CameraRotateAround : MonoBehaviour {
 	}
 	protected void CheckSwipe(SwipeController.SwipeType type)
 	{
-		if (type == SwipeController.SwipeType.LEFT)
-			_direction = -1;
-		else if (type == SwipeController.SwipeType.RIGHT)
-			_direction = 1;
+        if (type == SwipeController.SwipeType.LEFT)
+            _direction = -1;
+        else if (type == SwipeController.SwipeType.RIGHT)
+            _direction = 1;
+        else _direction = 0;
 	}
 
 	private void ResetSwipe()
