@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     private bool _gameStarted;
     private List<ChipController> _chips;
 
+    private bool _isWin;
+
     void Start()
     {
         _endLevelPanel.gameObject.SetActive(false);
@@ -79,6 +81,8 @@ public class GameManager : MonoBehaviour
     {
         float result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);
         _scoreText.text = "Your result: " + result + "%";
+        if (result >= 75) _isWin = true;
+        else _isWin = false;
         OnEndGame();
     }
     private void SetTextureSize(int size, Camera camera, RawImage image)
@@ -166,6 +170,10 @@ public class GameManager : MonoBehaviour
                 chip.SetDisabled();
             }
         }
+        if (_isWin)
+        {
+            LevelData.LevelCompletedCount++;
+            PlayerPrefs.SetInt("LevelCount", LevelData.LevelCompletedCount);
+        }
     }
-
 }

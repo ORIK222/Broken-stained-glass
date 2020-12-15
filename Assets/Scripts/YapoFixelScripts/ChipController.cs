@@ -31,6 +31,7 @@ public class ChipController : MonoBehaviour
     {
         _startPosition = transform.position;
     }
+
     public void Init(GameManager gameManager, Color color)
     {
         _gameManager = gameManager;
@@ -56,6 +57,7 @@ public class ChipController : MonoBehaviour
         transform.position = cursorPosition;
 
     }
+
     private void OnMouseUpAsButton()
     {
         if (_isDisabled) return;
