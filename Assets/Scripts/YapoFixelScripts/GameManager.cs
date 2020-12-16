@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Camera _cameraRepairedArt;
     [SerializeField] private RawImage _originalArtDebug;
     [SerializeField] private RawImage _repairedArtDebug;
+    [SerializeField] private Vitrage _correctVitrage;
 
     [SerializeField] int _RTColorizeSize = 3;
     [SerializeField] int _RTAnalizeSize = 8;
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _endLevelPanel.gameObject.SetActive(false);
+        _correctVitrage.gameObject.SetActive(false);
         gameManager = this;
     }
     public void GetColors()
@@ -81,6 +83,13 @@ public class GameManager : MonoBehaviour
     }
     public void Analyze()
     {
+        if (_chipsRootNode.childCount > 0)
+        {
+            for (int i = _chipsRootNode.childCount - 1; i >= 0; --i)
+            {
+                GameObject.Destroy(_chipsRootNode.GetChild(i).gameObject);
+            }
+        }
         float result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);
         _scoreText.text = "Your result: " + result.ToString("F0") + "%";
         if (result >= 75) IsWin = true;
@@ -161,11 +170,16 @@ public class GameManager : MonoBehaviour
         _repairedArtDebug.gameObject.SetActive(true);
         _endLevelPanel.gameObject.SetActive(false);
     }
+
+    public void EndLevelPanelEnabled()
+    {
+        _endLevelPanel.gameObject.SetActive(true);
+    }
+
     private void OnEndGame()
     {
         _repairedArtDebug.gameObject.SetActive(false);
         _originalArtDebug.gameObject.SetActive(false);
-        _endLevelPanel.gameObject.SetActive(true);
         if (_chips != null)
         {
             foreach (var chip in _chips)
@@ -178,9 +192,11 @@ public class GameManager : MonoBehaviour
         {
             LevelData.LevelUnlockedCount++;
             PlayerPrefs.SetInt("LevelCount", LevelData.LevelUnlockedCount);
+            _correctVitrage.gameObject.SetActive(true);
         }
         else
         {
+            _endLevelPanel.gameObject.SetActive(true);
             HeartController.heartController.LostHeartsCount++;
             PlayerPrefs.SetInt("LostHeart", HeartController.heartController.LostHeartsCount);
         }

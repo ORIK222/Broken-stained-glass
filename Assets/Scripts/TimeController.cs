@@ -26,7 +26,6 @@ public class TimeController : MonoBehaviour
         MinutesPassed += LeaveTimeCalculation(_currentGameTime, _leaveGameTime);
         _isQuit = 0;
         PlayerPrefs.SetInt("IsQuit",_isQuit);
-        DontDestroyOnLoad(this);
     }
     private void FixedUpdate()
     {
@@ -55,7 +54,6 @@ public class TimeController : MonoBehaviour
             MinutesPassed += 1;
             tempSeconds = 0;
         }
-        Debug.Log(tempSeconds);
     }
     private void OnApplicationQuit()
     {
