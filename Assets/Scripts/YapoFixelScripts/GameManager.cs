@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
     public void Analyze()
     {
         float result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);
-        _scoreText.text = "Your result: " + result + "%";
+        _scoreText.text = "Your result: " + result.ToString("F0") + "%";
         if (result >= 75) IsWin = true;
         else IsWin = false;
         OnEndGame();
@@ -176,6 +176,11 @@ public class GameManager : MonoBehaviour
         {
             LevelData.LevelUnlockedCount++;
             PlayerPrefs.SetInt("LevelCount", LevelData.LevelUnlockedCount);
+        }
+        else
+        {
+            Debug.Log("else");
+            HeartController.heartController.LoseEvent.Invoke();
         }
     }
 }
