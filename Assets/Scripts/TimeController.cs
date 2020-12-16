@@ -28,7 +28,6 @@ public class TimeController : MonoBehaviour
         PlayerPrefs.SetInt("IsQuit",_isQuit);
         DontDestroyOnLoad(this);
     }
-
     private void FixedUpdate()
     {
         if (HeartController.heartController.LostHeartsCount > 0)

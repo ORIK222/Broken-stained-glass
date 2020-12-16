@@ -4,8 +4,6 @@ using UnityEngine.Events;
 
 public class HeartController : MonoBehaviour
 {
-    [SerializeField] public Sprite _redHeartSprite;
-    [SerializeField] private Sprite _darkHeartSprite;
     private Heart[] _hearts;
     private int _repairTime;
     public int LostHeartsCount;
@@ -19,6 +17,7 @@ public class HeartController : MonoBehaviour
     {
         heartController = this;
         LostHeartsCount = PlayerPrefs.GetInt("LostHeart");
+        if (LostHeartsCount >= 5) PlayerPrefs.SetInt("LostHeart", 5);
         _hearts = new Heart[transform.childCount];
         HeartsInit();
         LostHeartChange();
@@ -41,12 +40,12 @@ public class HeartController : MonoBehaviour
     {
         for (int i = 0; i < _hearts.Length; i++)
         {
-            _hearts[i].GetComponent<Image>().sprite = _redHeartSprite;
+            _hearts[i].image.color = new Color(0.82f, 0.05f, 0.05f);
         }
         for (int i = 0; i < LostHeartsCount; i++)
         {
             _hearts[i].IsLost = true;
-            _hearts[i].GetComponent<Image>().sprite = _darkHeartSprite;
+            _hearts[i].image.color = Color.black;
         }
         if (LostHeartsCount >= _hearts.Length) IsAllHeartsLost = true;
         else IsAllHeartsLost = false;
@@ -70,7 +69,7 @@ public class HeartController : MonoBehaviour
                 else
                 {
                     _hearts[i].IsLost = false;
-                    _hearts[i].GetComponent<Image>().sprite = _redHeartSprite;
+                    _hearts[i].image.color = new Color(0.82f, 0.05f, 0.05f); 
                     LoseEvent.Invoke();
                     PlayerPrefs.SetInt("LostHeart", LostHeartsCount);
                     LostHeartChange();
