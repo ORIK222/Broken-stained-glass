@@ -15,6 +15,7 @@ public class UIController : MonoBehaviour
 
     private void Start()
     {
+
         uiController = this;
         _gameManager.GetColors();
     }

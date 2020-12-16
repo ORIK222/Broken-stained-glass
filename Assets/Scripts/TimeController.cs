@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TimeController : MonoBehaviour
@@ -26,7 +24,7 @@ public class TimeController : MonoBehaviour
     {
         var timeCount = currentTime - leaveTime;
         var hour = timeCount.Hours;
-        var minutes = timeCount.Minutes;
+        var minutes = timeCount.Seconds;
         float minutesPassed = 0;
         for (int i = 0; i < hour; i++)
         {

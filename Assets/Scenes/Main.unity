@@ -1593,12 +1593,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58366f4a3b12be478b17ca71d93f915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _redHeartSprite: {fileID: 21300000, guid: c14b1001d9a7eb94b960c4c4d131af38, type: 3}
   _darkHeartSprite: {fileID: 21300000, guid: 9682a5ece0c5d954698c7ef341d5589c, type: 3}
   LoseEvent:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1660286662}
-        m_MethodName: ChangeHeartsState
+        m_MethodName: ChangeHeartState
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1608,6 +1609,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  IsAllHeartsLost: 0
 --- !u!1 &1828166654
 GameObject:
   m_ObjectHideFlags: 0

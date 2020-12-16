@@ -12,7 +12,7 @@ public class Tower : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (IsUnlocked && !IsComplete)
+        if (IsUnlocked && !IsComplete && !HeartController.heartController.IsAllHeartsLost)
         {
             _startLevelPanel.SetActive(true);
             _levelNumberText.text = "Level " + _levelNumber.ToString();

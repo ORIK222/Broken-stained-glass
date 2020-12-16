@@ -1,55 +1,76 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
 public class HeartController : MonoBehaviour
 {
+    [SerializeField] public Sprite _redHeartSprite;
     [SerializeField] private Sprite _darkHeartSprite;
     private Heart[] _hearts;
-    private int _lostHeartsCount;
+    public int LostHeartsCount;
+
 
     public UnityEvent LoseEvent;
+    public bool IsAllHeartsLost;
     public static HeartController heartController;
 
     private void Awake()
     {
         heartController = this;
-        _lostHeartsCount = PlayerPrefs.GetInt("LostHeart");
+        LostHeartsCount = PlayerPrefs.GetInt("LostHeart");
+        _hearts = new Heart[transform.childCount];
+        HeartsInit();
+        if (LostHeartsCount >= _hearts.Length) IsAllHeartsLost = true;
     }
 
     private void Start()
     {
-        _hearts = new Heart[transform.childCount];
-        HeartsInit();
+        Debug.Log(TimeController.MinutesPassed);
     }
+
+    private void FixedUpdate()
+    { 
+        HeartRepair(TimeController.MinutesPassed);
+    }
+
     private void HeartsInit()
     {
         for (int i = 0; i < _hearts.Length; i++)
             _hearts[i] = transform.GetChild(i).GetComponent<Heart>();
 
-        for (int i = 0; i < _lostHeartsCount; i++)
+        for (int i = 0; i < LostHeartsCount; i++)
         {
-                _hearts[i].IsLost = true;
-                _hearts[i].GetComponent<Image>().sprite = _darkHeartSprite;
+            _hearts[i].IsLost = true;
+            _hearts[i].GetComponent<Image>().sprite = _darkHeartSprite;
         }
+        if (LostHeartsCount >= _hearts.Length) IsAllHeartsLost = true;
     }
 
-    public void ChangeHeartsState()
+    public void ChangeHeartState()
     {
-        for (int i = 0; i < _hearts.Length; i++)
+        Debug.Log(TimeController.MinutesPassed);
+        LostHeartsCount--;
+        TimeController.MinutesPassed -= 10;
+    }
+
+    private void HeartRepair(float minutes)
+    {
+        for (int i = _hearts.Length - 1; i >= 0; i--)
         {
-            if (!_hearts[i].IsLost)
+            if (minutes >= 10)
             {
-                _hearts[i].IsLost = true;
-                _hearts[i].GetComponent<Image>().sprite = _darkHeartSprite;
-                break;
+                if (LostHeartsCount <= 0)
+                {
+                    TimeController.MinutesPassed = 0;
+                    LostHeartsCount = 0;
+                    return;
+                }
+                _hearts[i].IsLost = false;
+                _hearts[i].GetComponent<Image>().sprite = _redHeartSprite;
+                LoseEvent.Invoke();
+                PlayerPrefs.SetInt("LostHeart", LostHeartsCount);
             }
-            else continue;
+            else break;
         }
-        _lostHeartsCount++;
-        PlayerPrefs.SetInt("LostHeart", _lostHeartsCount);
     }
 }

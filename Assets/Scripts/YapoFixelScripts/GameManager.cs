@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         if (result >= 75) IsWin = true;
         else IsWin = false;
         OnEndGame();
+
     }
     private void SetTextureSize(int size, Camera camera, RawImage image)
     {
@@ -172,6 +173,7 @@ public class GameManager : MonoBehaviour
                 chip.SetDisabled();
             }
         }
+
         if (IsWin)
         {
             LevelData.LevelUnlockedCount++;
@@ -179,8 +181,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("else");
-            HeartController.heartController.LoseEvent.Invoke();
+            HeartController.heartController.LostHeartsCount++;
+            PlayerPrefs.SetInt("LostHeart", HeartController.heartController.LostHeartsCount);
         }
     }
 }
