@@ -18,6 +18,7 @@ public class HeartController : MonoBehaviour
         heartController = this;
         LostHeartsCount = PlayerPrefs.GetInt("LostHeart");
         if (LostHeartsCount >= 5) PlayerPrefs.SetInt("LostHeart", 5);
+        if (LostHeartsCount <= 0) PlayerPrefs.SetInt("LostHeart", 0);
         _hearts = new Heart[transform.childCount];
         HeartsInit();
         LostHeartChange();
@@ -25,7 +26,7 @@ public class HeartController : MonoBehaviour
     }
     private void Start()
     {
-        _repairTime = 15;
+        _repairTime = 3;
     }
     private void FixedUpdate()
     {
@@ -40,12 +41,12 @@ public class HeartController : MonoBehaviour
     {
         for (int i = 0; i < _hearts.Length; i++)
         {
-            _hearts[i].image.color = new Color(0.82f, 0.05f, 0.05f);
+            _hearts[i].gameObject.SetActive(true);
         }
         for (int i = 0; i < LostHeartsCount; i++)
         {
             _hearts[i].IsLost = true;
-            _hearts[i].image.color = Color.black;
+            _hearts[i].gameObject.SetActive(false); 
         }
         if (LostHeartsCount >= _hearts.Length) IsAllHeartsLost = true;
         else IsAllHeartsLost = false;
@@ -69,7 +70,7 @@ public class HeartController : MonoBehaviour
                 else
                 {
                     _hearts[i].IsLost = false;
-                    _hearts[i].image.color = new Color(0.82f, 0.05f, 0.05f); 
+                    _hearts[i].gameObject.SetActive(true);
                     LoseEvent.Invoke();
                     PlayerPrefs.SetInt("LostHeart", LostHeartsCount);
                     LostHeartChange();

@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Camera _cameraRepairedArt;
     [SerializeField] private RawImage _originalArtDebug;
     [SerializeField] private RawImage _repairedArtDebug;
-    [SerializeField] private Vitrage _correctVitrage;
+    [SerializeField] private RepairVitrageAnimation _correctVitrage;
 
     [SerializeField] int _RTColorizeSize = 3;
     [SerializeField] int _RTAnalizeSize = 8;
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         SetTextureSize(_RTColorizeSize, _cameraOriginalArt, _originalArtDebug);
 
         _colors = GetColorsList(_cameraOriginalArt.targetTexture);
-        
+
         SetTextureSize(_RTAnalizeSize, _cameraOriginalArt, _originalArtDebug);
         SetTextureSize(_RTAnalizeSize, _cameraRepairedArt, _repairedArtDebug);
         GenerateChips();
@@ -58,7 +58,6 @@ public class GameManager : MonoBehaviour
 
         if (_chipsRootNode.childCount > 0)
         {
-            //destroy old chips
             for (int i = _chipsRootNode.childCount - 1; i >= 0; --i)
             {
                 GameObject.Destroy(_chipsRootNode.GetChild(i).gameObject);
@@ -72,11 +71,11 @@ public class GameManager : MonoBehaviour
         {
             Transform tr = (Instantiate(_prefabChip[Random.Range(0, _prefabChip.Count)], _chipsRootNode, true)).transform;
 
-            tr.SetPositionAndRotation(new Vector3( posX, Random.Range(-2.5f, -2.1f) - 0.2f, 0.0f), Quaternion.identity);
+            tr.SetPositionAndRotation(new Vector3(posX, Random.Range(-2.5f, -2.1f) - 0.2f, 0.0f), Quaternion.identity);
             posX += offsetX;
 
             ChipController chip = tr.GetComponent<ChipController>();
-            chip.Init(this, _colors[(int)Mathf.Repeat(i, _colors.Count)]);
+            chip.Init(this, _colors[(int)Mathf.Repeat(i, _colors.Count)], ChipsSizeCalculation(_RTColorizeSize));
             _chips.Add(chip);
         }
 
@@ -155,14 +154,14 @@ public class GameManager : MonoBehaviour
     }
     public void ChipReleased(Vector2 chipPosition)
     {
-       /* if (!_gameStarted)
-        {
-            if ((chipPosition.x > 615 && chipPosition.x < 815) && (chipPosition.y > 315 && chipPosition.y < 525))
-            {
-                _gameStarted = true;
-                _repairedArtDebug.gameObject.SetActive(false);
-            }
-        }*/
+        /* if (!_gameStarted)
+         {
+             if ((chipPosition.x > 615 && chipPosition.x < 815) && (chipPosition.y > 315 && chipPosition.y < 525))
+             {
+                 _gameStarted = true;
+                 _repairedArtDebug.gameObject.SetActive(false);
+             }
+         }*/
     }
     private void OnStartGame()
     {
@@ -170,12 +169,10 @@ public class GameManager : MonoBehaviour
         _repairedArtDebug.gameObject.SetActive(true);
         _endLevelPanel.gameObject.SetActive(false);
     }
-
     public void EndLevelPanelEnabled()
     {
         _endLevelPanel.gameObject.SetActive(true);
     }
-
     private void OnEndGame()
     {
         _repairedArtDebug.gameObject.SetActive(false);
@@ -200,5 +197,33 @@ public class GameManager : MonoBehaviour
             HeartController.heartController.LostHeartsCount++;
             PlayerPrefs.SetInt("LostHeart", HeartController.heartController.LostHeartsCount);
         }
+    }
+    private Vector2 ChipsSizeCalculation(int pieceCount)
+    {
+        Vector2 chipsSize = new Vector2(1,1);
+        Debug.Log(pieceCount);
+        switch (pieceCount)
+        {
+            case 2:
+            {
+                    chipsSize = new Vector2(1.4f, 1.4f);
+                break;
+            }   
+            case 3:
+            {
+                    chipsSize = new Vector2(0.9f, 0.9f);
+                    break;
+            }
+            case 4:
+            {
+                    chipsSize = new Vector2(0.75f, 0.75f);
+                    break;
+            }
+
+        default:
+                break;
+    }
+
+        return chipsSize;
     }
 }

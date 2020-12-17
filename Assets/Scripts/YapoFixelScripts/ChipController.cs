@@ -32,10 +32,11 @@ public class ChipController : MonoBehaviour
         _startPosition = transform.position;
     }
 
-    public void Init(GameManager gameManager, Color color)
+    public void Init(GameManager gameManager, Color color, Vector2 size)
     {
         _gameManager = gameManager;
         _spriteRenderer.color = color;
+        transform.localScale = size;
     }
 
     private void OnMouseDown()
@@ -46,7 +47,6 @@ public class ChipController : MonoBehaviour
         screenPoint = _camera.WorldToScreenPoint(transform.position);
         _offset = transform.position - _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z));
     }
-
     private void OnMouseDrag()
     {
         if (_isDisabled) return;
@@ -57,7 +57,6 @@ public class ChipController : MonoBehaviour
         transform.position = cursorPosition;
 
     }
-
     private void OnMouseUpAsButton()
     {
         if (_isDisabled) return;
@@ -66,7 +65,6 @@ public class ChipController : MonoBehaviour
         StepsPanel.stepsPanel.StepsCountText.text = _stepCounter.Count.ToString();
         MovingToStartPosition();
     }
-
     private void MovingToStartPosition()
     {
         if(transform.position.x > -5.7f && transform.position.x < -0.5f 
@@ -75,7 +73,6 @@ public class ChipController : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, _startPosition, 1.0f);
         }
     }
-
     public void SetDisabled()
     {
         _isDisabled = true;
