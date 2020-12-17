@@ -8,7 +8,7 @@ public class LevelData : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("LevelCount") < 1) LevelUnlockedCount = 1; 
         else LevelUnlockedCount = PlayerPrefs.GetInt("LevelCount");
-        //PlayerPrefs.SetInt("LevelCount", 1);
+        PlayerPrefs.SetInt("LevelCount", 1);
     }
 
 }

@@ -190,6 +190,8 @@ public class GameManager : MonoBehaviour
             LevelData.LevelUnlockedCount++;
             PlayerPrefs.SetInt("LevelCount", LevelData.LevelUnlockedCount);
             _correctVitrage.gameObject.SetActive(true);
+            Valuta.Coin += (int)GetWinPrize();
+            PlayerPrefs.SetInt("Coin", Valuta.Coin);
         }
         else
         {
@@ -224,5 +226,13 @@ public class GameManager : MonoBehaviour
     }
 
         return chipsSize;
+    }
+    private float GetWinPrize()
+    {
+        var rewardMulti = (_RTColorizeSize) * (((StepCounter.stepCounter.Count * 100) / StepCounter.stepCounter.StartCount) / 10);
+        var reward = (_RTColorizeSize * _RTAnalizeSize) * rewardMulti;
+        float result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);;
+        var coinCount = reward * result/100;
+        return coinCount;
     }
 }

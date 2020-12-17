@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class StepsPanel : MonoBehaviour
 {
-    [SerializeField] private StepCounter _stepCounter;
     private Text _levelNumberText;
 
     public static StepsPanel stepsPanel;
     public Text StepsCountText;
+
 
 
     private void Awake()
@@ -18,7 +18,7 @@ public class StepsPanel : MonoBehaviour
 
     private void Start()
     {
-        StepsCountText.text = _stepCounter.Count.ToString();
+        StepsCountText.text = StepCounter.stepCounter.Count.ToString();
         _levelNumberText = FindObjectOfType<LevelNumberText>().GetComponent<Text>();
         _levelNumberText.text = SceneManager.GetActiveScene().buildIndex.ToString();
     }

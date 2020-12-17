@@ -5,13 +5,20 @@ public class StepCounter : MonoBehaviour
 {
     public static StepCounter stepCounter;
 
-    public UnityEvent EndLevelEvents; 
+    public UnityEvent EndLevelEvents;
+    public int StartCount;
     public int Count;
     private int temp = 0;
-
+    public double endedStepCount;
     private void Awake()
     {
         stepCounter = this;
+        StartCount = Count;
+    }
+
+    private void Start()
+    {
+        endedStepCount = Count * 0.3f;
     }
     private void Update()
     {

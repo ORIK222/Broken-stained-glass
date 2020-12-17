@@ -61,8 +61,7 @@ public class ChipController : MonoBehaviour
     {
         if (_isDisabled) return;
         _gameManager.ChipReleased(_camera.WorldToScreenPoint(transform.position));
-        _stepCounter.Count--;
-        StepsPanel.stepsPanel.StepsCountText.text = _stepCounter.Count.ToString();
+        StepCalculation();
         MovingToStartPosition();
     }
     private void MovingToStartPosition()
@@ -76,5 +75,15 @@ public class ChipController : MonoBehaviour
     public void SetDisabled()
     {
         _isDisabled = true;
+    }
+
+    private void StepCalculation()
+    {
+        _stepCounter.Count--;
+        StepsPanel.stepsPanel.StepsCountText.text = _stepCounter.Count.ToString();
+        if (_stepCounter.Count <= (int)StepCounter.stepCounter.endedStepCount)
+        {
+            StepsPanel.stepsPanel.StepsCountText.GetComponent<Animator>().SetTrigger("Ended");
+        }
     }
 }
