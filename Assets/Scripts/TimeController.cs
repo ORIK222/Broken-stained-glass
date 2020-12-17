@@ -19,14 +19,13 @@ public class TimeController : MonoBehaviour
     }
     private void Start()
     {
-        if (this == null)
+        _isQuit = PlayerPrefs.GetInt("IsQuit");
+        if (_isQuit == 1)
         {
-            _isQuit = PlayerPrefs.GetInt("IsQuit");
+            _isQuit = 0;
             if (HeartController.heartController.LostHeartsCount == 0) PlayerPrefs.SetFloat("MinutesPassed", 0);
             MinutesPassed = PlayerPrefs.GetFloat("MinutesPassed");
-            if (_isQuit == 1)
-                MinutesPassed += LeaveTimeCalculation(_currentGameTime, _leaveGameTime);
-            _isQuit = 0;
+            MinutesPassed += LeaveTimeCalculation(_currentGameTime, _leaveGameTime);
             PlayerPrefs.SetInt("IsQuit", _isQuit);
             DontDestroyOnLoad(this);
         }
@@ -57,7 +56,6 @@ public class TimeController : MonoBehaviour
         {
             MinutesPassed += 1;
             tempSeconds = 0;
-            Debug.Log(MinutesPassed);
         }
     }
     private void OnApplicationQuit()
@@ -67,5 +65,6 @@ public class TimeController : MonoBehaviour
         PlayerPrefs.SetString("LeaveTime", _leaveGameTime.ToBinary().ToString());
         PlayerPrefs.SetFloat("MinutesPassed", MinutesPassed);
         PlayerPrefs.SetInt("IsQuit",_isQuit);
+        Destroy(this);
     }
 }

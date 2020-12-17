@@ -26,7 +26,7 @@ public class HeartController : MonoBehaviour
     }
     private void Start()
     {
-        _repairTime = 3;
+        _repairTime = 1;
     }
     private void FixedUpdate()
     {
@@ -69,6 +69,7 @@ public class HeartController : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("Repair");
                     _hearts[i].IsLost = false;
                     _hearts[i].gameObject.SetActive(true);
                     LoseEvent.Invoke();

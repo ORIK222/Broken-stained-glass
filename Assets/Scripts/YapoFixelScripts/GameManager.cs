@@ -201,7 +201,6 @@ public class GameManager : MonoBehaviour
     private Vector2 ChipsSizeCalculation(int pieceCount)
     {
         Vector2 chipsSize = new Vector2(1,1);
-        Debug.Log(pieceCount);
         switch (pieceCount)
         {
             case 2:
