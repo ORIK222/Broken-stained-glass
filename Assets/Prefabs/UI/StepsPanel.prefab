@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1449949561}
   - component: {fileID: 1449949560}
   m_Layer: 5
-  m_Name: 'StepText '
+  m_Name: 'MoveText '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Step
+  m_Text: 'Move
+
+'
 --- !u!1 &4525205244862758629
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 049c654ece92f8f4a997621bf6568d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stepCounter: {fileID: 0}
   StepsCountText: {fileID: 4525205245195206277}
 --- !u!1 &4525205245161689464
 GameObject:

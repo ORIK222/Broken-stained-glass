@@ -61,6 +61,7 @@ public class ChipController : MonoBehaviour
     {
         if (_isDisabled) return;
         _gameManager.ChipReleased(_camera.WorldToScreenPoint(transform.position));
+        if (_gameManager.Result == 100) _gameManager.Analyze();
         StepCalculation();
         MovingToStartPosition();
     }

@@ -34,13 +34,21 @@ public class GameManager : MonoBehaviour
 
     public bool IsWin;
     public static GameManager gameManager;
+    public int Reward;
+    public float Result;
 
-    void Start()
+    private void Start()
     {
         _endLevelPanel.gameObject.SetActive(false);
         _correctVitrage.gameObject.SetActive(false);
         gameManager = this;
     }
+
+    private void FixedUpdate()
+    {
+        Result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);
+    }
+
     public void GetColors()
     {
         SetTextureSize(_RTColorizeSize, _cameraOriginalArt, _originalArtDebug);
@@ -96,6 +104,22 @@ public class GameManager : MonoBehaviour
         OnEndGame();
 
     }
+    public void EndLevelPanelEnabled()
+    {
+        _endLevelPanel.gameObject.SetActive(true);
+    }
+    public void ChipReleased(Vector2 chipPosition)
+    {
+        /* if (!_gameStarted)
+         {
+             if ((chipPosition.x > 615 && chipPosition.x < 815) && (chipPosition.y > 315 && chipPosition.y < 525))
+             {
+                 _gameStarted = true;
+                 _repairedArtDebug.gameObject.SetActive(false);
+             }
+         }*/
+    }
+
     private void SetTextureSize(int size, Camera camera, RawImage image)
     {
         if (camera.targetTexture != null)
@@ -128,7 +152,7 @@ public class GameManager : MonoBehaviour
 
         return result;
     }
-    List<Color> GetColorsList(RenderTexture rt)
+    private List<Color> GetColorsList(RenderTexture rt)
     {
         List<Color> colors = new List<Color>();
 
@@ -152,26 +176,11 @@ public class GameManager : MonoBehaviour
     {
         return (float1 + delta >= float2) && (float1 - delta <= float2);
     }
-    public void ChipReleased(Vector2 chipPosition)
-    {
-        /* if (!_gameStarted)
-         {
-             if ((chipPosition.x > 615 && chipPosition.x < 815) && (chipPosition.y > 315 && chipPosition.y < 525))
-             {
-                 _gameStarted = true;
-                 _repairedArtDebug.gameObject.SetActive(false);
-             }
-         }*/
-    }
     private void OnStartGame()
     {
         _gameStarted = false;
         _repairedArtDebug.gameObject.SetActive(true);
         _endLevelPanel.gameObject.SetActive(false);
-    }
-    public void EndLevelPanelEnabled()
-    {
-        _endLevelPanel.gameObject.SetActive(true);
     }
     private void OnEndGame()
     {
@@ -190,12 +199,14 @@ public class GameManager : MonoBehaviour
             LevelData.LevelUnlockedCount++;
             PlayerPrefs.SetInt("LevelCount", LevelData.LevelUnlockedCount);
             _correctVitrage.gameObject.SetActive(true);
-            Valuta.Coin += (int)GetWinPrize();
+            Reward = (int)GetWinPrize();
+            Valuta.Coin += Reward;
             PlayerPrefs.SetInt("Coin", Valuta.Coin);
         }
         else
         {
             _endLevelPanel.gameObject.SetActive(true);
+            Reward = 0;
             HeartController.heartController.LostHeartsCount++;
             PlayerPrefs.SetInt("LostHeart", HeartController.heartController.LostHeartsCount);
         }
@@ -229,10 +240,14 @@ public class GameManager : MonoBehaviour
     }
     private float GetWinPrize()
     {
-        var rewardMulti = (_RTColorizeSize) * (((StepCounter.stepCounter.Count * 100) / StepCounter.stepCounter.StartCount) / 10);
-        var reward = (_RTColorizeSize * _RTAnalizeSize) * rewardMulti;
+        float rewardMulti = ((float)StepCounter.stepCounter.Count/(float)StepCounter.stepCounter.StartCount)*(_RTColorizeSize-1.0f)*150.0f;
+        Debug.Log("RewardMulti: " + rewardMulti);
+        float reward = 50.0f + rewardMulti;
+        Debug.Log("Reward: " + reward);
         float result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);;
+        Debug.Log("Result: " + result);
         var coinCount = reward * result/100;
+        Debug.Log("Coin: " + coinCount);
         return coinCount;
     }
 }

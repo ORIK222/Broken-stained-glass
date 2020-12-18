@@ -6,7 +6,7 @@ public class Valuta : MonoBehaviour
 {
     public static int Coin;
 
-    private void Start()
+    private void Awake()
     {
         Coin = PlayerPrefs.GetInt("Coin");
     }

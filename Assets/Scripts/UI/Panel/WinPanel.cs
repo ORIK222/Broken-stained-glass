@@ -20,7 +20,7 @@ public class WinPanel : MonoBehaviour
         if (GameManager.gameManager.IsWin)
         {
             _winLoseText.text = "You win!";
-            _rewardText.text = Valuta.Coin.ToString();
+            _rewardText.text = GameManager.gameManager.Reward.ToString();
         }
         else _winLoseText.text = "You lose!";
     }

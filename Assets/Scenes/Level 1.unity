@@ -248,6 +248,8 @@ MonoBehaviour:
   _endLevelPanel: {fileID: 815620917}
   _scoreText: {fileID: 597884851}
   IsWin: 0
+  Reward: 0
+  Result: 0
 --- !u!1 &270082595
 GameObject:
   m_ObjectHideFlags: 0
@@ -2031,6 +2033,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  StartCount: 0
   Count: 6
   endedStepCount: 0
 --- !u!1 &1647025053
@@ -2477,6 +2480,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EndLevelPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3464396489857791080, guid: b1c3ea320d7432c4ba634a2b5934371b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3464396489857791081, guid: b1c3ea320d7432c4ba634a2b5934371b,
         type: 3}
