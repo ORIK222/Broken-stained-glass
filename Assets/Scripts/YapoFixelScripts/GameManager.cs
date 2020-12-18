@@ -241,13 +241,9 @@ public class GameManager : MonoBehaviour
     private float GetWinPrize()
     {
         float rewardMulti = ((float)StepCounter.stepCounter.Count/(float)StepCounter.stepCounter.StartCount)*(_RTColorizeSize-1.0f)*150.0f;
-        Debug.Log("RewardMulti: " + rewardMulti);
         float reward = 50.0f + rewardMulti;
-        Debug.Log("Reward: " + reward);
         float result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);;
-        Debug.Log("Result: " + result);
         var coinCount = reward * result/100;
-        Debug.Log("Coin: " + coinCount);
         return coinCount;
     }
 }
