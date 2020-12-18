@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class NoCoinPanel : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        PanelClosed();
     }
-
-    // Update is called once per frame
-    void Update()
+    public void PanelClosed()
     {
-        
+        this.gameObject.SetActive(false);
     }
 }

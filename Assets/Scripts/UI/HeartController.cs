@@ -7,7 +7,8 @@ public class HeartController : MonoBehaviour
     private Heart[] _hearts;
     private int _repairTime;
     private BuyHeartsPanel _buyHeartsPanel;
-    private bool _isPanelEnabled;
+    private NoCoinPanel _noCoinPanel;
+    private bool _isBuyPanelEnabled;
     private int _repairPrice;
 
     public int LostHeartsCount;
@@ -19,6 +20,7 @@ public class HeartController : MonoBehaviour
     {
         heartController = this;
         _buyHeartsPanel = FindObjectOfType<BuyHeartsPanel>();
+        _noCoinPanel = FindObjectOfType<NoCoinPanel>();
         LostHeartsCount = PlayerPrefs.GetInt("LostHeart");
         if (LostHeartsCount >= 5) PlayerPrefs.SetInt("LostHeart", 5);
         if (LostHeartsCount <= 0) PlayerPrefs.SetInt("LostHeart", 0);
@@ -32,12 +34,13 @@ public class HeartController : MonoBehaviour
         _repairPrice = 100;
         _repairTime = 1;
         _buyHeartsPanel.gameObject.SetActive(false);
-        _isPanelEnabled = false;
+        _isBuyPanelEnabled = false;
     }
     private void FixedUpdate()
     {
         HeartRepair();
     }
+
     private void HeartsInit()
     {
         for (int i = 0; i < _hearts.Length; i++)
@@ -90,25 +93,32 @@ public class HeartController : MonoBehaviour
 
     public void BuyHeartsPanelChangeState()
     {
-        _isPanelEnabled = !_isPanelEnabled;
-        _buyHeartsPanel.gameObject.SetActive(_isPanelEnabled);
+        _isBuyPanelEnabled = !_isBuyPanelEnabled;
+        _buyHeartsPanel.gameObject.SetActive(_isBuyPanelEnabled);
     }
     public void BuyHeart()
     {
         for (int i = _hearts.Length - 1; i >= 0; i--)
         {
-            if (_hearts[i].IsLost && LostHeartsCount != 0 && Valuta.Coin >= _repairPrice)
+            if (_hearts[i].IsLost && LostHeartsCount != 0)
             {
-                Valuta.Coin -= 100;
-                PlayerPrefs.SetInt("Coin", Valuta.Coin);
-                _hearts[i].IsLost = false;
-                _hearts[i].gameObject.SetActive(true);
-                LoseEvent.Invoke();
-                PlayerPrefs.SetInt("LostHeart", LostHeartsCount);
-                LostHeartCheck();
-                _buyHeartsPanel.gameObject.SetActive(false);
-                CoinUI.coinUI.CointCountChange();
-                return;
+                if (Valuta.Coin >= _repairPrice)
+                {
+                    Valuta.Coin -= 100;
+                    PlayerPrefs.SetInt("Coin", Valuta.Coin);
+                    _hearts[i].IsLost = false;
+                    _hearts[i].gameObject.SetActive(true);
+                    LoseEvent.Invoke();
+                    PlayerPrefs.SetInt("LostHeart", LostHeartsCount);
+                    LostHeartCheck();
+                    _buyHeartsPanel.gameObject.SetActive(false);
+                    CoinUI.coinUI.CointCountChange();
+                    return;
+                }
+                else
+                {
+                    _noCoinPanel.gameObject.SetActive(true);
+                }
             }
             else continue;
 
