@@ -7,16 +7,29 @@ public class Tower : MonoBehaviour
     [SerializeField] private GameObject _startLevelPanel;
     [SerializeField] private Text _levelNumberText;
 
+    private NoHeartPanel _noHeartPanel;
     public bool IsUnlocked;
     public bool IsComplete;
 
+    private void Awake()
+    {
+        _noHeartPanel = FindObjectOfType<NoHeartPanel>();
+    }
+
     private void OnMouseDown()
     {
-        if (IsUnlocked && !IsComplete) //&& !HeartController.heartController.IsAllHeartsLost)
+        if (IsUnlocked && !IsComplete)
         {
-            _startLevelPanel.SetActive(true);
-            _levelNumberText.text = "Level " + _levelNumber.ToString();
-            StartGame.LevelNumber = _levelNumber;
+            if (!HeartController.heartController.IsAllHeartsLost)
+            {
+                _startLevelPanel.SetActive(true);
+                _levelNumberText.text = "Level " + _levelNumber.ToString();
+                StartGame.LevelNumber = _levelNumber;
+            }
+            else
+            {
+                _noHeartPanel.gameObject.SetActive(true);
+            }
         }
     }
     

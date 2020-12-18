@@ -22,7 +22,11 @@ public class WinPanel : MonoBehaviour
             _winLoseText.text = "You win!";
             _rewardText.text = GameManager.gameManager.Reward.ToString();
         }
-        else _winLoseText.text = "You lose!";
+        else
+        {
+            _winLoseText.text = "You lose!";
+            _rewardText.text = GameManager.gameManager.Reward.ToString();
+        }
     }
     public void BackToLastScene()
     {
