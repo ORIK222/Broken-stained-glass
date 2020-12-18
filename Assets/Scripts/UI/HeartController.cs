@@ -8,6 +8,7 @@ public class HeartController : MonoBehaviour
     private int _repairTime;
     private BuyHeartsPanel _buyHeartsPanel;
     private bool _isPanelEnabled;
+    private int _repairPrice;
 
     public int LostHeartsCount;
     public UnityEvent LoseEvent;
@@ -28,6 +29,7 @@ public class HeartController : MonoBehaviour
     }
     private void Start()
     {
+        _repairPrice = 100;
         _repairTime = 1;
         _buyHeartsPanel.gameObject.SetActive(false);
         _isPanelEnabled = false;
@@ -95,7 +97,7 @@ public class HeartController : MonoBehaviour
     {
         for (int i = _hearts.Length - 1; i >= 0; i--)
         {
-            if (_hearts[i].IsLost && LostHeartsCount != 0 && Valuta.Coin >= 100)
+            if (_hearts[i].IsLost && LostHeartsCount != 0 && Valuta.Coin >= _repairPrice)
             {
                 Valuta.Coin -= 100;
                 PlayerPrefs.SetInt("Coin", Valuta.Coin);
@@ -111,6 +113,5 @@ public class HeartController : MonoBehaviour
             else continue;
 
         }
-    }
-   
+    } 
 }
