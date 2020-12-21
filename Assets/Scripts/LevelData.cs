@@ -7,6 +7,7 @@ public class LevelData : MonoBehaviour
     private void Awake()
     {   
         LevelUnlockedCount = PlayerPrefs.GetInt("LevelCount");
-        if (LevelUnlockedCount >= 7) PlayerPrefs.SetInt("LevelCount", 1);
+        Debug.Log(LevelUnlockedCount);
+        if (LevelUnlockedCount == 1) PlayerPrefs.SetInt("LevelCount", 6);
     }
 }

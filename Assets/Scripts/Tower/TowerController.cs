@@ -25,7 +25,7 @@ public class TowerController : MonoBehaviour
     }
     private void CompleteCheck()
     {
-        if (_towers.Length <= LevelData.LevelUnlockedCount) _isAllRepair = true;
+        if (_towers.Length < LevelData.LevelUnlockedCount) _isAllRepair = true;
         if (!_isAllRepair)
         {
             for (int i = 0; i < _towers.Length; i++)
