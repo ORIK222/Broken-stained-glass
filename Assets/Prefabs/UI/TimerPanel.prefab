@@ -438,9 +438,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Move
-
-'
+  m_Text: Time
 --- !u!1 &8319586152170864811
 GameObject:
   m_ObjectHideFlags: 0

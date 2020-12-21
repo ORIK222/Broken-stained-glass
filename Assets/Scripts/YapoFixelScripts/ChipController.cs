@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChipController : MonoBehaviour
 {
@@ -30,6 +31,10 @@ public class ChipController : MonoBehaviour
     }
     private void OnMouseDown()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            if (Tutorial.tutorial.gameObject.activeSelf == true) Tutorial.tutorial.gameObject.SetActive(false);
+        }
         if (_isDisabled) return;
         _offsetZ = Mathf.Repeat(_offsetZ + 0.1f, 1.0f);
         transform.position = new Vector3(transform.position.x, transform.position.y, - _offsetZ);
