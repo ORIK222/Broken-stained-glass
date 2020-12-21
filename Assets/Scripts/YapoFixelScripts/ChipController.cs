@@ -4,6 +4,7 @@ public class ChipController : MonoBehaviour
 {
     [SerializeField] SpriteRenderer _spriteRenderer;
     private StepCounter _stepCounter;
+    private AudioSource _audioSource;
 
     private Vector3 screenPoint;
     private Vector3 _offset;
@@ -21,6 +22,7 @@ public class ChipController : MonoBehaviour
         _camera = Camera.main;
         _screenBounds = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _camera.transform.position.z));
         _stepCounter = FindObjectOfType<StepCounter>();
+        _audioSource = GetComponent<AudioSource>();
     }
     private void Start()
     {
@@ -49,8 +51,8 @@ public class ChipController : MonoBehaviour
         if (_isDisabled) return;
         _gameManager.ChipReleased(_camera.WorldToScreenPoint(transform.position));
         if (_gameManager.Result == 100) _gameManager.Analyze();
-        
-        if(!MovingToStartPosition() && !_gameManager.IsTime)
+        if (_gameManager.IsTime && !MovingToStartPosition()) _audioSource.Play(); 
+        if (!MovingToStartPosition() && !_gameManager.IsTime)
             StepCalculation();
     }
 
@@ -67,6 +69,7 @@ public class ChipController : MonoBehaviour
     }  
     private void StepCalculation()
     {
+        _audioSource.Play();
         _stepCounter.Count--;
         StepsPanel.stepsPanel.StepsCountText.text = _stepCounter.Count.ToString();
         if (_stepCounter.Count <= (int)StepCounter.stepCounter.endedStepCount)
