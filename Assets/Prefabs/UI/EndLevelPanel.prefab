@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 3464396489857791083}
   - component: {fileID: 3464396489857791082}
   - component: {fileID: 3464396489857791076}
+  - component: {fileID: 6308073984553430228}
   m_Layer: 5
   m_Name: EndLevelPanel
   m_TagString: Untagged
@@ -394,6 +395,25 @@ MonoBehaviour:
   _titleText: {fileID: 3464396489692906166}
   _winLoseText: {fileID: 6308073985488329316}
   _rewardText: {fileID: 8955271012841455467}
+--- !u!95 &6308073984553430228
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3464396489857791080}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 65828952fb84ea5428dc44fb14c0260d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3464396490442745554
 GameObject:
   m_ObjectHideFlags: 0
