@@ -32,7 +32,7 @@ public class HeartController : MonoBehaviour
     private void Start()
     {
         _repairPrice = 100;
-        _repairTime = 1;
+        _repairTime = 15;
         _buyHeartsPanel.gameObject.SetActive(false);
         _isBuyPanelEnabled = false;
     }
@@ -40,7 +40,6 @@ public class HeartController : MonoBehaviour
     {
         HeartRepair();
     }
-
     private void HeartsInit()
     {
         for (int i = 0; i < _hearts.Length; i++)

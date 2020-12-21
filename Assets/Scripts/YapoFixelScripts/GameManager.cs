@@ -28,9 +28,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text _scoreText;
     //
 
+    [SerializeField] private AudioSource _winAudioSource;
+    [SerializeField] private AudioSource _loseAudioSource;
+
     private List<Color> _colors;
     private bool _gameStarted;
     private List<ChipController> _chips;
+
 
     public bool IsWin;
     public static GameManager gameManager;
@@ -196,6 +200,7 @@ public class GameManager : MonoBehaviour
 
         if (IsWin)
         {
+            _winAudioSource.Play();
             LevelData.LevelUnlockedCount++;
             PlayerPrefs.SetInt("LevelCount", LevelData.LevelUnlockedCount);
             _correctVitrage.gameObject.SetActive(true);
@@ -205,6 +210,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            _loseAudioSource.Play();
             _endLevelPanel.gameObject.SetActive(true);
             Reward = 0;
             HeartController.heartController.LostHeartsCount++;
