@@ -9,13 +9,10 @@ public class StepsPanel : MonoBehaviour
     public static StepsPanel stepsPanel;
     public Text StepsCountText;
 
-
-
     private void Awake()
     {
         stepsPanel = this;
     }
-
     private void Start()
     {
         StepsCountText.text = StepCounter.stepCounter.Count.ToString();

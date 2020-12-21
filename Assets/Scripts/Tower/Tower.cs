@@ -8,6 +8,7 @@ public class Tower : MonoBehaviour
     [SerializeField] private Text _levelNumberText;
 
     private NoHeartPanel _noHeartPanel;
+
     public bool IsUnlocked;
     public bool IsComplete;
 
@@ -15,7 +16,6 @@ public class Tower : MonoBehaviour
     {
         _noHeartPanel = FindObjectOfType<NoHeartPanel>();
     }
-
     private void OnMouseDown()
     {
         if (IsUnlocked && !IsComplete)
@@ -32,5 +32,4 @@ public class Tower : MonoBehaviour
             }
         }
     }
-    
 }

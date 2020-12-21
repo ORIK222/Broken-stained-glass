@@ -254,6 +254,7 @@ MonoBehaviour:
   IsWin: 0
   Reward: 0
   Result: 0
+<<<<<<< HEAD
 --- !u!82 &168961975
 AudioSource:
   m_ObjectHideFlags: 0
@@ -446,6 +447,9 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+=======
+  IsTime: 0
+>>>>>>> f6755e3 (Додав рівні)
 --- !u!1 &270082595
 GameObject:
   m_ObjectHideFlags: 0

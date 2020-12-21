@@ -11,7 +11,6 @@ public class Heart : MonoBehaviour
         image = GetComponent<Image>();
         image.color = Color.red;
     }
-
 }
 
 

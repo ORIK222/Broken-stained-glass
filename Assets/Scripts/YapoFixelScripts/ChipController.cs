@@ -22,19 +22,10 @@ public class ChipController : MonoBehaviour
         _screenBounds = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _camera.transform.position.z));
         _stepCounter = FindObjectOfType<StepCounter>();
     }
-
     private void Start()
     {
         _startPosition = transform.position;
     }
-
-    public void Init(GameManager gameManager, Color color, Vector2 size)
-    {
-        _gameManager = gameManager;
-        _spriteRenderer.color = color;
-        transform.localScale = size;
-    }
-
     private void OnMouseDown()
     {
         if (_isDisabled) return;
@@ -58,22 +49,22 @@ public class ChipController : MonoBehaviour
         if (_isDisabled) return;
         _gameManager.ChipReleased(_camera.WorldToScreenPoint(transform.position));
         if (_gameManager.Result == 100) _gameManager.Analyze();
-        StepCalculation();
-        MovingToStartPosition();
+        
+        if(!MovingToStartPosition() && !_gameManager.IsTime)
+            StepCalculation();
     }
-    private void MovingToStartPosition()
+
+    private bool MovingToStartPosition()
     {
+        bool IsMoving = false;
         if(transform.position.x > -5.7f && transform.position.x < -0.5f 
            && transform.position.y > -4f && transform.position.y < 2.7f)
         {
             transform.position = Vector3.Lerp(transform.position, _startPosition, 1.0f);
+            IsMoving = true;
         }
-    }
-    public void SetDisabled()
-    {
-        _isDisabled = true;
-    }
-
+        return IsMoving;
+    }  
     private void StepCalculation()
     {
         _stepCounter.Count--;
@@ -82,5 +73,17 @@ public class ChipController : MonoBehaviour
         {
             StepsPanel.stepsPanel.StepsCountText.GetComponent<Animator>().SetTrigger("Ended");
         }
+    } 
+
+    public void SetDisabled()
+    {
+        _isDisabled = true;
     }
+    public void Init(GameManager gameManager, Color color, Vector2 size)
+    {
+        _gameManager = gameManager;
+        _spriteRenderer.color = color;
+        transform.localScale = size;
+    }
+
 }

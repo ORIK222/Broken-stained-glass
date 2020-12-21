@@ -58,12 +58,7 @@ public class HeartController : MonoBehaviour
         }
         if (LostHeartsCount >= _hearts.Length) IsAllHeartsLost = true;
         else IsAllHeartsLost = false;
-    }
-    public void ChangeHeartState()
-    {
-        LostHeartsCount--;
-        TimeController.MinutesPassed -= _repairTime;
-    }
+    }   
     private void HeartRepair()
     {
         for (int i = _hearts.Length - 1; i >= 0; i--)
@@ -77,7 +72,6 @@ public class HeartController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Repair");
                     _hearts[i].IsLost = false;
                     _hearts[i].gameObject.SetActive(true);
                     LoseEvent.Invoke();
@@ -123,4 +117,9 @@ public class HeartController : MonoBehaviour
 
         }
     } 
+    public void ChangeHeartState()
+    {
+        LostHeartsCount--;
+        TimeController.MinutesPassed -= _repairTime;
+    }
 }

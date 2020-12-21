@@ -5,8 +5,8 @@ public class TimeController : MonoBehaviour
 {
     private DateTime _leaveGameTime;
     private DateTime _currentGameTime;
-    private int _isQuit = 0;
 
+    private int _isQuit = 0;
     private float tempSeconds = 0;
 
     public static float MinutesPassed;
@@ -36,6 +36,16 @@ public class TimeController : MonoBehaviour
             OnGameTimeCalculation();
         else PlayerPrefs.SetFloat("MinutesPassed", 0);
     }
+  
+    private void OnApplicationQuit()
+    {
+        _leaveGameTime = DateTime.Now;
+        _isQuit = 1;
+        PlayerPrefs.SetString("LeaveTime", _leaveGameTime.ToBinary().ToString());
+        PlayerPrefs.SetFloat("MinutesPassed", MinutesPassed);
+        PlayerPrefs.SetInt("IsQuit",_isQuit);
+        Destroy(this);
+    }  
     private float LeaveTimeCalculation(DateTime currentTime, DateTime leaveTime)
     {
         var timeCount = currentTime - leaveTime;
@@ -57,14 +67,5 @@ public class TimeController : MonoBehaviour
             MinutesPassed += 1;
             tempSeconds = 0;
         }
-    }
-    private void OnApplicationQuit()
-    {
-        _leaveGameTime = DateTime.Now;
-        _isQuit = 1;
-        PlayerPrefs.SetString("LeaveTime", _leaveGameTime.ToBinary().ToString());
-        PlayerPrefs.SetFloat("MinutesPassed", MinutesPassed);
-        PlayerPrefs.SetInt("IsQuit",_isQuit);
-        Destroy(this);
     }
 }
