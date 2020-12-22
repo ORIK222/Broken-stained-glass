@@ -9,12 +9,12 @@ public class WinPanel : MonoBehaviour
     [SerializeField] private Text _titleText;
     [SerializeField] private Text _winLoseText;
     [SerializeField] private Text _rewardText;
+
     private void Start()
     {
         _titleText.text = "Level " + SceneManager.GetActiveScene().buildIndex.ToString();
         _winLoseText.text = "You win!";
     }
-
     private void Update()
     {
         if (GameManager.gameManager.IsWin)
@@ -28,6 +28,7 @@ public class WinPanel : MonoBehaviour
             _rewardText.text = GameManager.gameManager.Reward.ToString();
         }
     }
+
     public void BackToLastScene()
     {
         SceneManager.LoadScene("Main");

@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class ChipController : MonoBehaviour
 {
     [SerializeField] SpriteRenderer _spriteRenderer;
     private StepCounter _stepCounter;
+    private AudioSource _audioSource;
 
     private Vector3 screenPoint;
     private Vector3 _offset;
@@ -25,22 +23,18 @@ public class ChipController : MonoBehaviour
         _camera = Camera.main;
         _screenBounds = _camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, _camera.transform.position.z));
         _stepCounter = FindObjectOfType<StepCounter>();
+        _audioSource = GetComponent<AudioSource>();
     }
-
     private void Start()
     {
         _startPosition = transform.position;
     }
-
-    public void Init(GameManager gameManager, Color color, Vector2 size)
-    {
-        _gameManager = gameManager;
-        _spriteRenderer.color = color;
-        transform.localScale = size;
-    }
-
     private void OnMouseDown()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            if (Tutorial.tutorial.gameObject.activeSelf == true) Tutorial.tutorial.gameObject.SetActive(false);
+        }
         if (_isDisabled) return;
         _offsetZ = Mathf.Repeat(_offsetZ + 0.1f, 1.0f);
         transform.position = new Vector3(transform.position.x, transform.position.y, - _offsetZ);
@@ -62,29 +56,42 @@ public class ChipController : MonoBehaviour
         if (_isDisabled) return;
         _gameManager.ChipReleased(_camera.WorldToScreenPoint(transform.position));
         if (_gameManager.Result == 100) _gameManager.Analyze();
-        StepCalculation();
-        MovingToStartPosition();
+        if (_gameManager.IsTime && !MovingToStartPosition()) _audioSource.Play(); 
+        if (!MovingToStartPosition() && !_gameManager.IsTime)
+            StepCalculation();
     }
-    private void MovingToStartPosition()
+
+    private bool MovingToStartPosition()
     {
+        bool IsMoving = false;
         if(transform.position.x > -5.7f && transform.position.x < -0.5f 
            && transform.position.y > -4f && transform.position.y < 2.7f)
         {
             transform.position = Vector3.Lerp(transform.position, _startPosition, 1.0f);
+            IsMoving = true;
         }
-    }
-    public void SetDisabled()
-    {
-        _isDisabled = true;
-    }
-
+        return IsMoving;
+    }  
     private void StepCalculation()
     {
+        _audioSource.Play();
         _stepCounter.Count--;
         StepsPanel.stepsPanel.StepsCountText.text = _stepCounter.Count.ToString();
         if (_stepCounter.Count <= (int)StepCounter.stepCounter.endedStepCount)
         {
             StepsPanel.stepsPanel.StepsCountText.GetComponent<Animator>().SetTrigger("Ended");
         }
+    } 
+
+    public void SetDisabled()
+    {
+        _isDisabled = true;
     }
+    public void Init(GameManager gameManager, Color color, Vector2 size)
+    {
+        _gameManager = gameManager;
+        _spriteRenderer.color = color;
+        transform.localScale = size;
+    }
+
 }

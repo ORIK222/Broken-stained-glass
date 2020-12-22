@@ -23,102 +23,37 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> _prefabChip;
     [SerializeField] private Transform _chipsRootNode;
 
-    //EndLevelPanel
     [SerializeField] private RectTransform _endLevelPanel;
     [SerializeField] private Text _scoreText;
-    //
+
+    [SerializeField] private AudioSource _winAudioSource;
+    [SerializeField] private AudioSource _loseAudioSource;
 
     private List<Color> _colors;
     private bool _gameStarted;
     private List<ChipController> _chips;
+    private bool _isAnalyze;
+
 
     public bool IsWin;
     public static GameManager gameManager;
     public int Reward;
     public float Result;
+    public bool IsTime;
 
     private void Start()
     {
+        if (FindObjectOfType<Timer>() != null) IsTime = true;
+        else IsTime = false;
         _endLevelPanel.gameObject.SetActive(false);
         _correctVitrage.gameObject.SetActive(false);
         gameManager = this;
+        _isAnalyze = false;
     }
-
     private void FixedUpdate()
     {
         Result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);
-    }
-
-    public void GetColors()
-    {
-        SetTextureSize(_RTColorizeSize, _cameraOriginalArt, _originalArtDebug);
-
-        _colors = GetColorsList(_cameraOriginalArt.targetTexture);
-
-        SetTextureSize(_RTAnalizeSize, _cameraOriginalArt, _originalArtDebug);
-        SetTextureSize(_RTAnalizeSize, _cameraRepairedArt, _repairedArtDebug);
-        GenerateChips();
-    }
-    public void GenerateChips()
-    {
-        OnStartGame();
-        _chips = new List<ChipController>();
-
-        if (_chipsRootNode.childCount > 0)
-        {
-            for (int i = _chipsRootNode.childCount - 1; i >= 0; --i)
-            {
-                GameObject.Destroy(_chipsRootNode.GetChild(i).gameObject);
-            }
-        }
-
-        float offsetX = 6f / (_RTAnalizeSize * _RTAnalizeSize);
-        float posX = -3f;
-
-        for (int i = 0; i < _RTAnalizeSize * _RTAnalizeSize; i++)
-        {
-            Transform tr = (Instantiate(_prefabChip[Random.Range(0, _prefabChip.Count)], _chipsRootNode, true)).transform;
-
-            tr.SetPositionAndRotation(new Vector3(posX, Random.Range(-2.5f, -2.1f) - 0.2f, 0.0f), Quaternion.identity);
-            posX += offsetX;
-
-            ChipController chip = tr.GetComponent<ChipController>();
-            chip.Init(this, _colors[(int)Mathf.Repeat(i, _colors.Count)], ChipsSizeCalculation(_RTColorizeSize));
-            _chips.Add(chip);
-        }
-
-    }
-    public void Analyze()
-    {
-        if (_chipsRootNode.childCount > 0)
-        {
-            for (int i = _chipsRootNode.childCount - 1; i >= 0; --i)
-            {
-                GameObject.Destroy(_chipsRootNode.GetChild(i).gameObject);
-            }
-        }
-        float result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);
-        _scoreText.text = "Your result: " + result.ToString("F0") + "%";
-        if (result >= 75) IsWin = true;
-        else IsWin = false;
-        OnEndGame();
-
-    }
-    public void EndLevelPanelEnabled()
-    {
-        _endLevelPanel.gameObject.SetActive(true);
-    }
-    public void ChipReleased(Vector2 chipPosition)
-    {
-        /* if (!_gameStarted)
-         {
-             if ((chipPosition.x > 615 && chipPosition.x < 815) && (chipPosition.y > 315 && chipPosition.y < 525))
-             {
-                 _gameStarted = true;
-                 _repairedArtDebug.gameObject.SetActive(false);
-             }
-         }*/
-    }
+    } 
 
     private void SetTextureSize(int size, Camera camera, RawImage image)
     {
@@ -196,6 +131,7 @@ public class GameManager : MonoBehaviour
 
         if (IsWin)
         {
+            _winAudioSource.Play();
             LevelData.LevelUnlockedCount++;
             PlayerPrefs.SetInt("LevelCount", LevelData.LevelUnlockedCount);
             _correctVitrage.gameObject.SetActive(true);
@@ -205,6 +141,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            _loseAudioSource.Play();
             _endLevelPanel.gameObject.SetActive(true);
             Reward = 0;
             HeartController.heartController.LostHeartsCount++;
@@ -240,10 +177,89 @@ public class GameManager : MonoBehaviour
     }
     private float GetWinPrize()
     {
-        float rewardMulti = ((float)StepCounter.stepCounter.Count/(float)StepCounter.stepCounter.StartCount)*(_RTColorizeSize-1.0f)*150.0f;
+        float rewardMulti;
+        if (!IsTime)
+        rewardMulti = ((float)StepCounter.stepCounter.Count/(float)StepCounter.stepCounter.StartCount)*(_RTColorizeSize-1.0f)*150.0f;
+        else rewardMulti = ((float)Timer.timer.CurrentTime / (float)Timer.timer.StartTime) * (_RTColorizeSize - 1.0f) * 150.0f;
         float reward = 50.0f + rewardMulti;
         float result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);;
         var coinCount = reward * result/100;
         return coinCount;
+    } 
+
+    public void GetColors()
+    {
+        SetTextureSize(_RTColorizeSize, _cameraOriginalArt, _originalArtDebug);
+
+        _colors = GetColorsList(_cameraOriginalArt.targetTexture);
+
+        SetTextureSize(_RTAnalizeSize, _cameraOriginalArt, _originalArtDebug);
+        SetTextureSize(_RTAnalizeSize, _cameraRepairedArt, _repairedArtDebug);
+        GenerateChips();
+    }
+    public void GenerateChips()
+    {
+        OnStartGame();
+        _chips = new List<ChipController>();
+
+        if (_chipsRootNode.childCount > 0)
+        {
+            for (int i = _chipsRootNode.childCount - 1; i >= 0; --i)
+            {
+                GameObject.Destroy(_chipsRootNode.GetChild(i).gameObject);
+            }
+        }
+
+        float offsetX = 6f / (_RTAnalizeSize * _RTAnalizeSize);
+        float posX = -3f;
+
+        for (int i = 0; i < _RTAnalizeSize * _RTAnalizeSize; i++)
+        {
+            Transform tr = (Instantiate(_prefabChip[Random.Range(0, _prefabChip.Count)], _chipsRootNode, true)).transform;
+
+            tr.SetPositionAndRotation(new Vector3(posX, Random.Range(-2.5f, -2.1f) - 0.2f, 0.0f), Quaternion.identity);
+            posX += offsetX;
+
+            ChipController chip = tr.GetComponent<ChipController>();
+            chip.Init(this, _colors[(int)Mathf.Repeat(i, _colors.Count)], ChipsSizeCalculation(_RTColorizeSize));
+            _chips.Add(chip);
+        }
+
+    }
+    public void Analyze()
+    {
+        if (_chipsRootNode.childCount > 0)
+        {
+            for (int i = _chipsRootNode.childCount - 1; i >= 0; --i)
+            {
+                GameObject.Destroy(_chipsRootNode.GetChild(i).gameObject);
+            }
+        }
+        if (!_isAnalyze)
+        {
+
+            float result = CompareRT(_cameraOriginalArt.targetTexture, _cameraRepairedArt.targetTexture);
+            _scoreText.text = "Your result: " + result.ToString("F0") + "%";
+            if (result >= 75) IsWin = true;
+            else IsWin = false;
+            OnEndGame();
+            _isAnalyze = true;
+        }
+
+    }
+    public void EndLevelPanelEnabled()
+    {
+        _endLevelPanel.gameObject.SetActive(true);
+    }
+    public void ChipReleased(Vector2 chipPosition)
+    {
+        /* if (!_gameStarted)
+         {
+             if ((chipPosition.x > 615 && chipPosition.x < 815) && (chipPosition.y > 315 && chipPosition.y < 525))
+             {
+                 _gameStarted = true;
+                 _repairedArtDebug.gameObject.SetActive(false);
+             }
+         }*/
     }
 }

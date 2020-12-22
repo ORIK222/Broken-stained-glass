@@ -12,29 +12,26 @@ public class UIController : MonoBehaviour
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _analizeButton;
 
-
     private void Start()
     {
 
         uiController = this;
         _gameManager.GetColors();
     }
+
     public void ButtonGetColorsOnClick()
     {
         _gameManager.GetColors();
         _analizeButton.gameObject.SetActive(true);
     }
-
     public void ButtonAnalyzeOnClick()
     {
         _gameManager.Analyze();
     }
-
     public void RestartButtonOnClick()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
     public void HomeButtonOnClick()
     {
         SceneManager.LoadScene("Main");
