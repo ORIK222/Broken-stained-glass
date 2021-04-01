@@ -4,10 +4,9 @@ using UnityEngine.Events;
 public class StepCounter : MonoBehaviour
 {
     public static StepCounter stepCounter;
-    public UnityEvent EndLevelEvents;
     public int StartCount;
     public int Count;
-    public double endedStepCount;
+    public double EndedStepCount;
 
     private int _temp = 0;
 
@@ -18,13 +17,13 @@ public class StepCounter : MonoBehaviour
     }
     private void Start()
     {
-        endedStepCount = Count * 0.3f;
+        EndedStepCount = Count * 0.3f;
     }
     private void Update()
     {
         if (Count <= 0 && _temp == 0)
-        { 
-            EndLevelEvents.Invoke();
+        {
+            Analizator.IsAnalyze = true;
             _temp++;
         }
     }

@@ -28,7 +28,7 @@ public class Timer : MonoBehaviour
     private void FixedUpdate()
     {
         _gameTime += 1 * Time.deltaTime;
-        if(_gameTime>=1 && _temp == 0 && !GameManager.gameManager.IsWin)
+        if(_gameTime>=1 && _temp == 0 /*&& !GameManager.gameManager.IsWin*/)
         {
             if (CurrentTime <= 10 && CurrentTime!=0) _timerPanel.transform.GetChild(0).transform.GetChild(1).GetComponent<Animator>().SetTrigger("Ended");
             CurrentTime -= 1;

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8515232668092419126}
   - component: {fileID: 3410074188182292667}
   - component: {fileID: 82224919156442464}
+  - component: {fileID: 722002532749096943}
   m_Layer: 9
   m_Name: ChipPrefabTriangle
   m_TagString: Untagged
@@ -48,6 +49,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -59,6 +61,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -94,7 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8689578b430734fb3b1d4ef5aa654ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 3046817425744874136}
 --- !u!60 &3410074188182292667
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -219,3 +221,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &722002532749096943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7019562097180143600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8f78e236d1a76c4c8b0810e44f9cc03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

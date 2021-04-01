@@ -9,6 +9,7 @@ public class WinPanel : MonoBehaviour
     [SerializeField] private Text _titleText;
     [SerializeField] private Text _winLoseText;
     [SerializeField] private Text _rewardText;
+    [SerializeField] private Text _resultText;
 
     private AudioSource _buttonClickSound;
     private void Start()
@@ -19,16 +20,13 @@ public class WinPanel : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManager.gameManager.IsWin)
-        {
-            _winLoseText.text = "You win!";
-            _rewardText.text = GameManager.gameManager.Reward.ToString();
-        }
+        if (Analizator.Result >= 75)
+          _winLoseText.text = "You win!";
         else
-        {
             _winLoseText.text = "You lose!";
-            _rewardText.text = GameManager.gameManager.Reward.ToString();
-        }
+
+        _resultText.text = Analizator.Result.ToString("F0") + "%";
+        _rewardText.text = Reward.CoinCount.ToString();
     }
 
     public void BackToLastScene()

@@ -16,7 +16,7 @@ public class RepairVitrageAnimation : MonoBehaviour
 
     private void IsAnimationEnd()
     {
-        GameManager.gameManager.EndLevelPanelEnabled();
+        UIController.uiController.EndPanelEnabled();
     }
 
     private void AnimationChoice(int pieceCount)

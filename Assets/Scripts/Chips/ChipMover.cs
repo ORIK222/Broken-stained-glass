@@ -1,22 +1,30 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChipController : MonoBehaviour
+public class ChipMover : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer _spriteRenderer;
     private StepCounter _stepCounter;
     private AudioSource _audioSource;
+    private Camera _camera;
 
     private Vector3 screenPoint;
     private Vector3 _offset;
     private Vector3 _startPosition;
-
-    private Camera _camera;
-    private float _offsetZ;
-    private GameManager _gameManager;
-
-    bool _isDisabled;
     private Vector2 _screenBounds;
+
+    private float _offsetZ;
+
+    public void ChipReleased(Vector2 chipPosition)
+    {
+        /* if (!_gameStarted)
+         {
+             if ((chipPosition.x > 615 && chipPosition.x < 815) && (chipPosition.y > 315 && chipPosition.y < 525))
+             {
+                 _gameStarted = true;
+                 _repairedArtDebug.gameObject.SetActive(false);
+             }
+         }*/
+    }
 
     private void Awake()
     {
@@ -35,7 +43,7 @@ public class ChipController : MonoBehaviour
         {
             if (Tutorial.tutorial.gameObject.activeSelf == true) Tutorial.tutorial.gameObject.SetActive(false);
         }
-        if (_isDisabled) return;
+        //if (_isDisabled) return;
         _offsetZ = Mathf.Repeat(_offsetZ + 0.1f, 1.0f);
         transform.position = new Vector3(transform.position.x, transform.position.y, - _offsetZ);
         screenPoint = _camera.WorldToScreenPoint(transform.position);
@@ -43,7 +51,7 @@ public class ChipController : MonoBehaviour
     }
     private void OnMouseDrag()
     {
-        if (_isDisabled) return;
+        //if (_isDisabled) return;
         Vector3 cursorPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
         Vector3 cursorPosition = _camera.ScreenToWorldPoint(cursorPoint) + _offset;
         cursorPosition.x = Mathf.Clamp(cursorPosition.x, -_screenBounds.x, _screenBounds.x);
@@ -53,14 +61,12 @@ public class ChipController : MonoBehaviour
     }
     private void OnMouseUpAsButton()
     {
-        if (_isDisabled) return;
-        _gameManager.ChipReleased(_camera.WorldToScreenPoint(transform.position));
-        if (_gameManager.Result == 100) _gameManager.Analyze();
-        if (_gameManager.IsTime && !MovingToStartPosition()) _audioSource.Play(); 
-        if (!MovingToStartPosition() && !_gameManager.IsTime)
+        ChipReleased(_camera.WorldToScreenPoint(transform.position));
+        if (Analizator.Result == 100) Analizator.IsAnalyze = true;
+        if (!MovingToStartPosition()) _audioSource.Play(); 
+        if (!MovingToStartPosition() && !GameManager.gameManager.IsTime)
             StepCalculation();
     }
-
     private bool MovingToStartPosition()
     {
         bool IsMoving = false;
@@ -77,21 +83,11 @@ public class ChipController : MonoBehaviour
         _audioSource.Play();
         _stepCounter.Count--;
         StepsPanel.stepsPanel.StepsCountText.text = _stepCounter.Count.ToString();
-        if (_stepCounter.Count <= (int)StepCounter.stepCounter.endedStepCount)
+        if (_stepCounter.Count <= (int)StepCounter.stepCounter.EndedStepCount)
         {
             StepsPanel.stepsPanel.StepsCountText.GetComponent<Animator>().SetTrigger("Ended");
         }
     } 
 
-    public void SetDisabled()
-    {
-        _isDisabled = true;
-    }
-    public void Init(GameManager gameManager, Color color, Vector2 size)
-    {
-        _gameManager = gameManager;
-        _spriteRenderer.color = color;
-        transform.localScale = size;
-    }
 
 }

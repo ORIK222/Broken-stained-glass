@@ -8,9 +8,9 @@ public class UIController : MonoBehaviour
 {
     public static UIController uiController;
 
-    [SerializeField] private GameManager _gameManager;
-    [SerializeField] private Button _startButton;
+    [SerializeField] RectTransform _endLevelPanel;
     [SerializeField] private Button _analizeButton;
+
 
     private AudioSource _buttonClickSound;
 
@@ -18,18 +18,17 @@ public class UIController : MonoBehaviour
     {
         _buttonClickSound = FindObjectOfType<SoundButtonClick>().GetComponent<AudioSource>();
         uiController = this;
-        _gameManager.GetColors();
     }
 
     public void ButtonGetColorsOnClick()
     {
-        _gameManager.GetColors();
         _analizeButton.gameObject.SetActive(true);
     }
     public void ButtonAnalyzeOnClick()
     {
         _buttonClickSound.Play();
-        _gameManager.Analyze();
+        Analizator.IsAnalyze = true;
+        _endLevelPanel.gameObject.SetActive(true);
     }
     public void RestartButtonOnClick()
     {
@@ -39,5 +38,8 @@ public class UIController : MonoBehaviour
     {
         SceneManager.LoadScene("Main");
     }
-
+    public void EndPanelEnabled()
+    {
+        _endLevelPanel.gameObject.SetActive(true);
+    }
 }
