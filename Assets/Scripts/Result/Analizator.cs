@@ -10,6 +10,7 @@ public class Analizator : MonoBehaviour
 
     public void Analyze()
     {
+        GetComponent<Reward>().LevelResultCalculation();
         GameManager.gameManager.OnEndGame();
         IsAnalyze = false;
         LevelIsEnded = true;
@@ -22,7 +23,7 @@ public class Analizator : MonoBehaviour
 
     private void Update()
     {
-        if(!LevelIsEnded)Result = _colorMaker.CompareRT();
+        if(!LevelIsEnded) Result = _colorMaker.CompareRT();
         if (IsAnalyze) Analyze();
     }
  

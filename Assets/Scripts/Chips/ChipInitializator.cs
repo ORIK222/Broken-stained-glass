@@ -4,8 +4,8 @@ using UnityEngine;
 public class ChipInitializator : MonoBehaviour
 {
     [SerializeField] private List<Chip> _prefabChip;
-    [SerializeField] private Transform _chipsRootNode;
-
+    
+    private Transform _chipsRootNode;
     private List<Chip> _chips;
     private ColorMaker _colorMaker;
     private int _chipsCount;
@@ -16,7 +16,7 @@ public class ChipInitializator : MonoBehaviour
     }
     private void Start()
     {
-        
+        _chipsRootNode = transform;
         _chipsCount = _colorMaker.RTAnalizeSize * _colorMaker.RTColorizeSize;
         GenerateChips();
     }

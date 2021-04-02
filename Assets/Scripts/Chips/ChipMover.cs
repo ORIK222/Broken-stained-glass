@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class ChipMover : MonoBehaviour
 {
+    public bool IsCorrect = false;
+
     private StepCounter _stepCounter;
     private AudioSource _audioSource;
     private Camera _camera;
@@ -13,10 +15,10 @@ public class ChipMover : MonoBehaviour
     private Vector2 _screenBounds;
 
     private float _offsetZ;
-
-    public void ChipReleased(Vector2 chipPosition)
+    private static float _result;
+    public void ChipReleased()
     {
-        /* if (!_gameStarted)
+        /*if (!_gameStarted)
          {
              if ((chipPosition.x > 615 && chipPosition.x < 815) && (chipPosition.y > 315 && chipPosition.y < 525))
              {
@@ -36,6 +38,7 @@ public class ChipMover : MonoBehaviour
     private void Start()
     {
         _startPosition = transform.position;
+        _result = Analizator.Result;
     }
     private void OnMouseDown()
     {
@@ -61,7 +64,12 @@ public class ChipMover : MonoBehaviour
     }
     private void OnMouseUpAsButton()
     {
-        ChipReleased(_camera.WorldToScreenPoint(transform.position));
+        if(_result < Analizator.Result)
+        {
+            _result = Analizator.Result;
+            IsCorrect = true;
+            Debug.Log("ChipMover");
+        }
         if (Analizator.Result == 100) Analizator.IsAnalyze = true;
         if (!MovingToStartPosition()) _audioSource.Play(); 
         if (!MovingToStartPosition() && !GameManager.gameManager.IsTime)

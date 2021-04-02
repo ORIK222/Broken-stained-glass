@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class LevelData : MonoBehaviour
+public class LevelDataLoader : MonoBehaviour
 {
     public static int LevelUnlockedCount = 1;
 

@@ -291,7 +291,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _correctVitrage
       value: 
-      objectReference: {fileID: 1687053344}
+      objectReference: {fileID: 0}
     - target: {fileID: 7939836941613744614, guid: 932f30817222c3d4b9e4d23fddc3a393,
         type: 3}
       propertyPath: _chipsRootNode
@@ -364,7 +364,7 @@ Transform:
   m_LocalScale: {x: 1.3, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1687053342}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &270082597
 SpriteRenderer:
@@ -965,7 +965,7 @@ Transform:
   m_LocalScale: {x: 1.3, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1687053342}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &489691063
 SpriteRenderer:
@@ -2172,7 +2172,7 @@ Transform:
   m_LocalScale: {x: 1.3, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1687053342}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1437032591
 SpriteRenderer:
@@ -2449,20 +2449,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f0462881aaf22641963a88459732312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EndLevelEvents:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1841761219}
-        m_MethodName: Analyze
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   StartCount: 0
   Count: 6
   EndedStepCount: 0
@@ -2570,7 +2556,7 @@ Transform:
   m_LocalScale: {x: 1.3, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1687053342}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1675677896
 SpriteRenderer:
@@ -2663,10 +2649,10 @@ Transform:
   m_LocalPosition: {x: 2, y: 0.24000001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 489691062}
-  - {fileID: 270082596}
   - {fileID: 1437032590}
+  - {fileID: 489691062}
   - {fileID: 1675677895}
+  - {fileID: 270082596}
   m_Father: {fileID: 1058458813}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2775,7 +2761,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1841761221
 AudioSource:
@@ -2888,57 +2874,7 @@ MonoBehaviour:
   _winAudioSource: {fileID: 8300000, guid: 382c832861d028541b9547efe82df74e, type: 3}
   _loseAudioSource: {fileID: 8300000, guid: 0e0f033e8126aff4193b2cd42b10f9c2, type: 3}
   _audioSource: {fileID: 1841761221}
-  _correctVitrage: {fileID: 1687053344}
---- !u!1 &1843410535
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1843410537}
-  - component: {fileID: 1843410536}
-  m_Layer: 0
-  m_Name: ChipsInitializator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!114 &1843410536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843410535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 444332111ced1d54db21c443b3719158, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefabChip:
-  - {fileID: 4559351376080580742, guid: f6ee5c9ccf20a46cd9ba8921a62afbc8, type: 3}
-  - {fileID: -7549643633748927685, guid: 06fb3271b83af42149f8e487d8f00abb, type: 3}
-  - {fileID: -1975791106062355465, guid: 8dd735d9873ec482ba4b361c2c5a9e04, type: 3}
-  - {fileID: 8537224568894943396, guid: 21b0e255d7d424525adf2424eef09d64, type: 3}
-  - {fileID: 722002532749096943, guid: 63496ebdb99b54ef3bedf57eb012d3a8, type: 3}
-  _chipsRootNode: {fileID: 2121184756}
---- !u!4 &1843410537
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1843410535}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.3089736, y: 0.33873332, z: -3.4672852}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  _correctVitrage: {fileID: 0}
 --- !u!1 &1959139210
 GameObject:
   m_ObjectHideFlags: 0
@@ -3090,6 +3026,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2121184756}
+  - component: {fileID: 2121184757}
+  - component: {fileID: 2121184758}
   m_Layer: 0
   m_Name: Chips
   m_TagString: Untagged
@@ -3111,3 +3049,38 @@ Transform:
   m_Father: {fileID: 1058458813}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2121184757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121184755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 444332111ced1d54db21c443b3719158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefabChip:
+  - {fileID: 4559351376080580742, guid: f6ee5c9ccf20a46cd9ba8921a62afbc8, type: 3}
+  - {fileID: -7549643633748927685, guid: 06fb3271b83af42149f8e487d8f00abb, type: 3}
+  - {fileID: -1975791106062355465, guid: 8dd735d9873ec482ba4b361c2c5a9e04, type: 3}
+  - {fileID: 8537224568894943396, guid: 21b0e255d7d424525adf2424eef09d64, type: 3}
+  - {fileID: 722002532749096943, guid: 63496ebdb99b54ef3bedf57eb012d3a8, type: 3}
+--- !u!114 &2121184758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121184755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3e8a534f418c6b4c905e359e5993e07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _correctVitrage:
+  - {fileID: 1437032589}
+  - {fileID: 489691061}
+  - {fileID: 1675677894}
+  - {fileID: 270082595}

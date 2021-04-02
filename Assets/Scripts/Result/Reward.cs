@@ -23,8 +23,6 @@ public class Reward : MonoBehaviour
     }
     private void Update()
     {
-        if(Analizator.IsAnalyze)
-            LevelResultCalculation();
     }
     private float GetWinPrize()
     {
@@ -38,13 +36,13 @@ public class Reward : MonoBehaviour
 
         return coinCount;
     } 
-    private void LevelResultCalculation()
+    public void LevelResultCalculation()
     {
-        if (Analizator.Result > 75)
+        if (Analizator.Result >= 75)
         {
             _audioSource.clip = _winAudioSource;
-            LevelData.LevelUnlockedCount++;
-            PlayerPrefs.SetInt("LevelCount", LevelData.LevelUnlockedCount);
+            LevelDataLoader.LevelUnlockedCount++;
+            PlayerPrefs.SetInt("LevelCount", LevelDataLoader.LevelUnlockedCount);
             _correctVitrage.gameObject.SetActive(true);
             CoinCount = (int)GetWinPrize();
             Valuta.Coin += CoinCount;
@@ -54,8 +52,8 @@ public class Reward : MonoBehaviour
         {
             _audioSource.clip = _loseAudioSource;
             CoinCount = 0;
-            HeartController.heartController.LostHeartsCount++;
-            PlayerPrefs.SetInt("LostHeart", HeartController.heartController.LostHeartsCount);
+            //HeartController.heartController.LostHeartsCount++;
+            //PlayerPrefs.SetInt("LostHeart", HeartController.heartController.LostHeartsCount);
         }
         _audioSource.Play();
     }
